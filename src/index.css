@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.solid-select-container {
+	@apply relative w-full;
+}
+
+.solid-select-control {
+	@apply grid grid-cols-1 select select-bordered font-normal text-base w-full;
+}
+
+.solid-select-input {
+	@apply col-start-1 row-start-1;
+}
+
+.solid-select-single-value {
+	@apply col-start-1 row-start-1 truncate my-auto;
+}
+
+.solid-select-list {
+	@apply dropdown-content menu p-2 shadow bg-base-100 rounded-box;
+}
+
+.solid-select-list > div {
+	@apply p-2 cursor-pointer;
+}
+
+.solid-select-list > div:hover {
+	@apply bg-base-content bg-opacity-10;
+}
