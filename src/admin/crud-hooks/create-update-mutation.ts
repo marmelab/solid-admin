@@ -1,11 +1,13 @@
 import { createMutation, defaultContext } from '@tanstack/solid-query';
 import { useDataProvider } from '../data-provider';
+import { useNotify } from '../notifications';
 
 export const createUpdateMutation = (variables: () => { resource: string; params: any }, options?: any) => {
 	const dataProvider = useDataProvider();
 
 	const resource = () => variables().resource;
 	const params = () => variables().params;
+	const notify = useNotify();
 
 	const mutation = createMutation(
 		(values: any) => {
@@ -14,7 +16,16 @@ export const createUpdateMutation = (variables: () => { resource: string; params
 				data: values,
 			});
 		},
-		{ context: defaultContext },
+		{
+			context: defaultContext,
+			onSuccess: () => {
+				notify({
+					message: 'Element updated',
+					type: 'success',
+					autoHideTimeout: 3000,
+				});
+			},
+		},
 	);
 
 	return mutation;

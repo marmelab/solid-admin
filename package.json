@@ -45,8 +45,10 @@
 		"@tanstack/solid-query": "^4.22.0",
 		"@tanstack/solid-table": "^8.7.6",
 		"@thisbeyond/solid-select": "^0.13.0",
+		"clsx": "^1.2.1",
 		"fakerest": "^3.3.0",
 		"lodash": "^4.17.21",
+		"solid-heroicons": "^3.1.1",
 		"solid-js": "^1.6.2"
 	}
 }
