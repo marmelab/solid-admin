@@ -71,14 +71,18 @@ const Pagination = (props: {
 	perPage: number;
 	page: number;
 	size?: 'xs' | 'sm' | 'md' | 'lg';
+	// eslint-disable-next-line no-unused-vars
 	setPage: (page: number) => void;
 }) => {
-	const pages = Math.ceil(props.total / props.perPage);
 	const merged = mergeProps({ size: 'sm' }, props);
+
+	const pages = () => {
+		return Math.ceil(props.total / props.perPage);
+	}
 
 	return (
 		<div class="btn-group">
-			<For each={Array.from({ length: pages })}>
+			<For each={Array.from({ length: pages() })}>
 				{(_, i) => (
 					<button
 						class={`btn btn-${merged.size}`}
