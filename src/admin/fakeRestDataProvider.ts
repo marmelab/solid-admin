@@ -1,5 +1,5 @@
 import FakeRest from 'fakerest';
-import type { DataProvider } from './data-provider';
+import type { DataProvider } from './core/data-provider';
 
 /* eslint-disable no-console */
 function log(type: string, resource: string, params: any, response: any) {

@@ -20,6 +20,7 @@
 		"@solidjs/testing-library": "^0.5.1",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@types/lodash": "^4.14.191",
+		"@types/node-polyglot": "^2.4.2",
 		"@types/testing-library__jest-dom": "^5.14.5",
 		"@typescript-eslint/eslint-plugin": "^5.48.1",
 		"@typescript-eslint/parser": "^5.48.1",
@@ -48,7 +49,9 @@
 		"@thisbeyond/solid-select": "^0.13.0",
 		"clsx": "^1.2.1",
 		"fakerest": "^3.3.0",
+		"inflection": "^2.0.1",
 		"lodash": "^4.17.21",
+		"node-polyglot": "^2.4.2",
 		"solid-heroicons": "^3.1.1",
 		"solid-js": "^1.6.2"
 	}

@@ -12,6 +12,7 @@ export type I18nProvider = {
 	// eslint-disable-next-line no-unused-vars
 	changeLocale: (locale: string) => Promise<void>;
 	getLocale: () => string;
+	getLocales?: () => Locale[];
 };
 
 export const I18nContext = createContext<I18nProvider>(defaulti18nContext);
@@ -31,3 +32,8 @@ export const useTranslate = () => {
 
     return context.translate;
 }
+
+export type Locale = {
+	locale: string;
+	name: string;
+};
