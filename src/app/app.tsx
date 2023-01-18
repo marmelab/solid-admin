@@ -14,9 +14,10 @@ const dataProvider = fakeRestDataProvider(data, process.env.NODE_ENV !== 'test')
 const messages = {
 	sa: {
 		messages: {
+			created: 'Element created',
 			updated: 'Element updated',
 		},
-	}
+	},
 };
 
 const i18nProvider = {
