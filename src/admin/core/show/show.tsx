@@ -3,6 +3,7 @@ import { JSX } from 'solid-js';
 import { createGetOneQuery } from '../crud-hooks';
 import { RecordProvider } from '../record';
 import { useResource } from '../resource';
+import { ShowTitle } from './show-title';
 
 export const Show = (props: { children: JSX.Element; resource: string; id?: string }) => {
 	const resource = useResource(props);
@@ -12,5 +13,10 @@ export const Show = (props: { children: JSX.Element; resource: string; id?: stri
 
 	const record = () => query.data?.data;
 
-	return <RecordProvider record={record}>{props.children}</RecordProvider>;
+	return (
+		<RecordProvider record={record}>
+			<ShowTitle />
+			{props.children}
+		</RecordProvider>
+	);
 };

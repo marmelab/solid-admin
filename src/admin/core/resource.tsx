@@ -14,21 +14,21 @@ export const Resource = (props: {
 }) => {
 	const { registerResource, unregisterResource } = useResourcesContext();
 
-	const definition = {
+	const definition = () => ({
 		name: props.name,
 		hasList: props.list != null,
 		hasCreate: props.create != null,
 		hasEdit: props.edit != null,
 		hasShow: props.show != null,
 		recordRepresentation: props.recordRepresentation,
-	};
+	});
 
 	onMount(() => {
-		registerResource(definition);
+		registerResource(definition());
 	});
 
 	onCleanup(() => {
-		unregisterResource(definition);
+		unregisterResource(definition());
 	});
 
 	return (
@@ -78,6 +78,7 @@ export const Resource = (props: {
 	);
 };
 
+// eslint-disable-next-line no-unused-vars
 export type GetRecordRepresentation = (record: any) => JSX.Element;
 
 export type ResourceDefinition = {
@@ -91,7 +92,8 @@ export type ResourceDefinition = {
 export const ResourceContext = createContext<string>();
 
 export const ResourceProvider = (props: { children: JSX.Element; resource: string }) => {
-	return <ResourceContext.Provider value={props.resource}>{props.children}</ResourceContext.Provider>;
+	const resource = () => props.resource;
+	return <ResourceContext.Provider value={resource()}>{props.children}</ResourceContext.Provider>;
 };
 
 export const useResource = (options?: { resource?: string }) => {
@@ -107,7 +109,9 @@ export const useResource = (options?: { resource?: string }) => {
 
 export const ResourcesContext = createContext<{
 	resources: ResourceDefinition[];
+	// eslint-disable-next-line no-unused-vars
 	registerResource: (resource: ResourceDefinition) => void;
+	// eslint-disable-next-line no-unused-vars
 	unregisterResource: (resource: ResourceDefinition) => void;
 }>();
 
@@ -142,7 +146,11 @@ export const useResourceDefinition = (options: { resource?: string }) => {
 	if (!resources) {
 		throw new Error('useResourceDefinition must be used within a ResourcesProvider');
 	}
-	return resources.find((r) => r.name === resource);
+	const resourceDefinition = () => {
+		return resources.find((r) => r.name === resource);
+	}
+
+	return resourceDefinition;
 };
 
 const useResourcesContext = () => {

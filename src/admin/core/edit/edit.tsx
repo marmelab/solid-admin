@@ -5,6 +5,7 @@ import { SaveContextProvider } from '../form/save-context';
 import { useNotify } from '../notifications';
 import { RecordProvider } from '../record';
 import { useResource } from '../resource';
+import { EditTitle } from './edit-title';
 
 export const Edit = (props: { children: JSX.Element; resource: string; id?: string }) => {
 	const resource = useResource(props);
@@ -48,6 +49,7 @@ export const Edit = (props: { children: JSX.Element; resource: string; id?: stri
 					return mutation.mutateAsync(values);
 				}}
 			>
+				<EditTitle />
 				{props.children}
 			</SaveContextProvider>
 		</RecordProvider>

@@ -1,4 +1,4 @@
-import { createContext, createSignal, JSX, onMount, useContext } from 'solid-js';
+import { createComputed, createContext, createSignal, JSX, useContext } from 'solid-js';
 
 export type AppTitleValue = JSX.Element;
 // eslint-disable-next-line no-unused-vars
@@ -28,20 +28,23 @@ export const useAppTitle = () => {
 	return context[0];
 };
 
-export const useSetAppTitle = (title: AppTitleValue) => {
+export const useSetAppTitle = () => {
 	const context = useContext(AppTitleContext);
 
 	if (!context) {
 		throw new Error('useAppTitle must be used within AppTitleProvider');
 	}
 
-	onMount(() => {
-		context[1](title);
-	});
+	return context[1];
 };
 
 export const AppTitle = (props: { children: JSX.Element }) => {
 	const value = () => props.children;
-	useSetAppTitle(value());
+	const setAppTitle = useSetAppTitle();
+
+	createComputed(() => {
+		setAppTitle(value());
+	});
+
 	return null;
 };
