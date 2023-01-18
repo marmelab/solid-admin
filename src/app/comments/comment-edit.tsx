@@ -1,4 +1,4 @@
-import { Edit, EditTitle, SimpleForm, ReferenceInput, TextInput, AutoCompleteInput } from '../../admin';
+import { Edit, EditTitle, SimpleForm, ReferenceInput, TextInput, SelectInput } from '../../admin';
 
 export const CommentEdit = () => {
 	return (
@@ -8,7 +8,7 @@ export const CommentEdit = () => {
 				<SimpleForm>
 					<TextInput source="body" />
 					<ReferenceInput reference="posts" source="post_id">
-						<AutoCompleteInput source="post_id" optionText="title" />
+						<SelectInput source="post_id" optionText="title" />
 					</ReferenceInput>
 				</SimpleForm>
 			</Edit>

@@ -1,4 +1,4 @@
-import { AutoCompleteInput, Create, ReferenceInput, SimpleForm, TextInput } from '../../admin';
+import { SelectInput, Create, ReferenceInput, SimpleForm, TextInput } from '../../admin';
 
 export const CommentCreate = () => {
 	return (
@@ -8,7 +8,7 @@ export const CommentCreate = () => {
 				<SimpleForm>
 					<TextInput source="body" />
 					<ReferenceInput reference="posts" source="post_id">
-						<AutoCompleteInput source="post_id" optionText="title" />
+						<SelectInput source="post_id" optionText="title" />
 					</ReferenceInput>
 				</SimpleForm>
 			</Create>

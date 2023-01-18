@@ -1,4 +1,4 @@
-import { createForm } from '@felte/solid';
+import { createForm, Form as SolidForm, reset } from '@modular-forms/solid';
 import { createComputed, createContext, useContext } from 'solid-js';
 import { DataRecord, useRecord } from '../record';
 import { useSaveContext } from './save-context';
@@ -13,26 +13,22 @@ export const Form = (props: {
 	const record = useRecord(props);
 	const saveContext = useSaveContext();
 
-	const formContext = createForm({
-		initialValues: props.initialValues ?? record,
-		onSubmit: props.onSubmit ?? saveContext,
+	const form = createForm({
+		initialValues: props.initialValues ?? record(),
 	});
 
 	createComputed(() => {
 		const initialValues = props.initialValues != null ? props.initialValues() : record();
 		if (initialValues != null) {
-			formContext.setInitialValues(initialValues);
-			formContext.reset();
+			reset(form, { initialValues });
 		}
 	});
 
-	const { form } = formContext;
-
 	return (
-		<FormContext.Provider value={formContext}>
-			<form use:form class={props.class}>
+		<FormContext.Provider value={form}>
+			<SolidForm of={form} onSubmit={props.onSubmit ?? saveContext} class={props.class}>
 				{props.children}
-			</form>
+			</SolidForm>
 		</FormContext.Provider>
 	);
 };

@@ -13,10 +13,11 @@ export const ReferenceField = (props: {
 	record?: DataRecord;
 }) => {
 	const record = useRecord(props);
-	const query = createReferenceQuery({
+	const referenceId = () => get(record(), props.source);
+	const query = createReferenceQuery(() => ({
 		resource: props.reference,
-		id: get(record(), props.source),
-	});
+		id: referenceId(),
+	}));
 
 	const referenceRecord = () => query.data?.data;
 
@@ -29,15 +30,19 @@ export const ReferenceField = (props: {
 	);
 };
 
-const createReferenceQuery = (options: { resource: string; id: string | number }) => {
+type CreateReferenceQueryOptions = () => { resource: string; id: string | number };
+const createReferenceQuery = (options: CreateReferenceQueryOptions) => {
 	const dataProvider = useDataProvider();
+	const resource = () => options().resource;
+	const id = () => options().id;
+
 	const query = createQuery(
-		() => [options.resource, 'getOne', options.id],
-		({ queryKey }) => dataProvider.getOne(options.resource, { id: options.id }),
+		() => [resource(), 'getOne', id()],
+		({ queryKey }) => dataProvider.getOne(queryKey[0].toString(), { id: queryKey[2] }),
 		{
 			context: defaultContext,
 			get enabled() {
-				return options.id != null;
+				return id() != null;
 			},
 		},
 	);

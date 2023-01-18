@@ -1,8 +1,10 @@
+import { getValue } from '@modular-forms/solid';
 import get from 'lodash/get';
 import { createGetOneQuery } from '../crud-hooks';
+import { useForm } from '../form';
 import { createListController } from '../list';
 import { ListContext } from '../list-context';
-import { DataRecord, RecordProvider, useRecord } from '../record';
+import { DataRecord, RecordProvider } from '../record';
 
 export const ReferenceInput = (props: {
 	label?: string;
@@ -11,18 +13,22 @@ export const ReferenceInput = (props: {
 	reference: string;
 	children: any;
 }) => {
-	const record = useRecord(props);
-	const value = () => {
-		return get(record(), props.source);
+	const form = useForm();
+	const referenceId = () => {
+		return getValue(form, props.source);
 	};
 
-	const recordQuery = createGetOneQuery({
-		resource: props.reference,
-		params: () => ({ id: value() }),
-		get enabled() {
-			return !!value();
+	const recordQuery = createGetOneQuery(
+		() => ({
+			resource: props.reference,
+			params: { id: referenceId() },
+		}),
+		{
+			get enabled() {
+				return !!referenceId();
+			},
 		},
-	});
+	);
 
 	const listQuery = createListController({
 		resource: props.reference,

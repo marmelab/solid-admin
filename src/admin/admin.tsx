@@ -5,7 +5,13 @@ import { DataProvider } from './data-provider';
 import { Layout } from './layout';
 import { ResourcesProvider } from './resource';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+});
 export const Admin = (props: any) => {
 	return (
 		<QueryClientProvider client={queryClient}>

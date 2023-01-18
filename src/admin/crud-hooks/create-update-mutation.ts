@@ -1,13 +1,16 @@
 import { createMutation, defaultContext } from '@tanstack/solid-query';
 import { useDataProvider } from '../data-provider';
 
-export const createUpdateMutation = (options: { resource: string; params: any }) => {
+export const createUpdateMutation = (variables: () => { resource: string; params: any }, options?: any) => {
 	const dataProvider = useDataProvider();
+
+	const resource = () => variables().resource;
+	const params = () => variables().params;
 
 	const mutation = createMutation(
 		(values: any) => {
-			return dataProvider.update(options.resource, {
-				...options.params,
+			return dataProvider.update(resource(), {
+				...params(),
 				data: values,
 			});
 		},

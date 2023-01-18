@@ -8,12 +8,16 @@ import { useResource } from '../resource';
 export const Edit = (props: { children: JSX.Element; resource: string; id?: string }) => {
 	const resource = useResource(props);
 	const params = useParams();
-	const id = props.id ?? params.id;
-	const query = createGetOneQuery({ resource, params: { id } });
-	const mutation = createUpdateMutation({
-		resource,
-		params: { id },
+	const id = () => props.id ?? params.id;
+	const query = createGetOneQuery(() => ({ resource, params: { id: id() } }), {
+		get enabled() {
+			return !!id();
+		},
 	});
+	const mutation = createUpdateMutation(() => ({
+		resource,
+		params: { id: id() },
+	}));
 
 	const record = () => query.data?.data;
 

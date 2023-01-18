@@ -1,21 +1,23 @@
-import { createQuery, defaultContext } from '@tanstack/solid-query';
-import { createComputed, splitProps } from 'solid-js';
+import { createQuery } from '@tanstack/solid-query';
 import { useDataProvider } from '../data-provider';
 
-export const createGetOneQuery = (options: any) => {
+type CreateGetOneQueryVariables = () => { resource: string; params: any };
+
+export const createGetOneQuery = (variables: CreateGetOneQueryVariables, options?: any) => {
 	const dataProvider = useDataProvider();
-	const [variables, queryOptions] = splitProps(options, ['resource', 'params']);
+	const resource = () => variables().resource;
+	const params = () => variables().params;
 
 	const query = createQuery(
 		() => [
-			variables.resource,
+			resource(),
 			'getOne',
-			typeof variables.params === 'function' ? variables.params() : variables.params,
+			params(),
 		],
 		({ queryKey }) => {
 			return dataProvider.getOne(queryKey[0].toString(), queryKey[2]);
 		},
-		queryOptions,
+		options,
 	);
 
 	return query;
