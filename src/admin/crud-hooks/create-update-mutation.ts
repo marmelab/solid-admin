@@ -20,7 +20,7 @@ export const createUpdateMutation = (variables: () => { resource: string; params
 			context: defaultContext,
 			onSuccess: () => {
 				notify({
-					message: 'Element updated',
+					message: 'sa.messages.updated',
 					type: 'success',
 					autoHideTimeout: 3000,
 				});

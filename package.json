@@ -39,6 +39,7 @@
 		"vitest": "^0.25.8"
 	},
 	"dependencies": {
+		"@cookbook/solid-intl": "^0.1.2",
 		"@modular-forms/solid": "^0.10.0",
 		"@solid-devtools/overlay": "^0.4.3",
 		"@solidjs/router": "^0.6.0",
