@@ -1,8 +1,7 @@
 import { Link } from '@solidjs/router';
-import { createQuery, defaultContext } from '@tanstack/solid-query';
 import get from 'lodash/get';
 import { JSX } from 'solid-js';
-import { useDataProvider } from '../data-provider';
+import { createGetManyAggregateQuery } from '../crud-hooks';
 import { DataRecord, RecordProvider, useRecord } from '../record';
 import { ResourceProvider } from '../resource';
 
@@ -19,7 +18,9 @@ export const ReferenceField = (props: {
 		id: referenceId(),
 	}));
 
-	const referenceRecord = () => query.data?.data;
+	const referenceRecord = () => {
+		return query.data && query.data.length > 0 ? query.data[0] : null;
+	}
 
 	return (
 		<ResourceProvider resource={props.reference}>
@@ -32,20 +33,10 @@ export const ReferenceField = (props: {
 
 type CreateReferenceQueryOptions = () => { resource: string; id: string | number };
 const createReferenceQuery = (options: CreateReferenceQueryOptions) => {
-	const dataProvider = useDataProvider();
 	const resource = () => options().resource;
 	const id = () => options().id;
 
-	const query = createQuery(
-		() => [resource(), 'getOne', id()],
-		({ queryKey }) => dataProvider.getOne(queryKey[0].toString(), { id: queryKey[2] }),
-		{
-			context: defaultContext,
-			get enabled() {
-				return id() != null;
-			},
-		},
-	);
+	const query = createGetManyAggregateQuery(() => ({ resource: resource(), params: { ids: [id()] } }));
 
 	return query;
 };
