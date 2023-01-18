@@ -30,16 +30,18 @@ const i18nProvider = {
 
 export const App = () => {
 	return (
-		<Admin dataProvider={dataProvider} i18nProvider={i18nProvider}>
-			<Resource name="posts" list={PostList} create={PostCreate} />
-			<Resource
-				name="comments"
-				list={CommentList}
-				create={CommentCreate}
-				edit={CommentEdit}
-				show={CommentShow}
-				recordRepresentation={(record: DataRecord) => `Comment #${record?.id}`}
-			/>
-		</Admin>
+		<div data-theme="corporate">
+			<Admin dataProvider={dataProvider} i18nProvider={i18nProvider}>
+				<Resource name="posts" list={PostList} create={PostCreate} />
+				<Resource
+					name="comments"
+					list={CommentList}
+					create={CommentCreate}
+					edit={CommentEdit}
+					show={CommentShow}
+					recordRepresentation={(record: DataRecord) => `Comment #${record?.id}`}
+				/>
+			</Admin>
+		</div>
 	);
 };
