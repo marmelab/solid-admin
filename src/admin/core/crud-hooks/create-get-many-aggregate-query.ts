@@ -1,8 +1,5 @@
 import { QueryClient, useQueryClient, createQuery } from '@tanstack/solid-query';
 import union from 'lodash/union';
-
-// import { UseGetManyHookValue } from './useGetMany';
-// import { Identifier, RaRecord, GetManyParams, DataProvider } from '../types';
 import { DataProvider, useDataProvider } from '../data-provider';
 
 /**
