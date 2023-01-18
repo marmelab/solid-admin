@@ -8,7 +8,9 @@ export const Layout = (props: any) => {
 		<AppTitleProvider>
 			<NotificationsProvider>
 				{props.appBar ?? <AppBar />}
-				<Outlet />
+				<div class="flex flex-col p-4 gap-4">
+					<Outlet />
+				</div>
 				<Notifications />
 			</NotificationsProvider>
 		</AppTitleProvider>

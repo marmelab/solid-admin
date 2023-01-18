@@ -14,13 +14,10 @@ const PostColumns: ColumnDef<any, any>[] = [
 	},
 ];
 
-export const PostList = (props: any) => {
+export const PostList = () => {
 	return (
-		<div class="flex flex-col p-4 gap-4">
-			<h1>Post List</h1>
-			<List>
-				<DataGrid columns={PostColumns} />
-			</List>
-		</div>
+		<List>
+			<DataGrid columns={PostColumns} />
+		</List>
 	);
 };

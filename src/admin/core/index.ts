@@ -5,7 +5,6 @@ export * from './crud-hooks';
 export * from './dashboard';
 export * from './data-provider';
 export * from './edit';
-export * from './fakeRestDataProvider';
 export * from './fields';
 export * from './form';
 export * from './inputs';

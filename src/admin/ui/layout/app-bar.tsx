@@ -1,7 +1,9 @@
 import { Link } from '@solidjs/router';
+import { humanize, pluralize } from 'inflection';
 import { For } from 'solid-js';
+import { useTranslate } from '../../core';
 import { useAppTitle } from '../../core/app-title';
-import { useResources } from '../../core/resource';
+import { ResourceDefinition, useResources } from '../../core/resource';
 
 export const AppBar = () => {
 	const resources = useResources();
@@ -20,9 +22,7 @@ export const AppBar = () => {
 					<ul class="menu menu-horizontal px-1">
 						<For each={resources}>
 							{(resource) => (
-								<li>
-									<Link href={`/${resource.name}`}>{resource.name}</Link>
-								</li>
+								<AppBarResourceItem resource={resource} />
 							)}
 						</For>
 					</ul>
@@ -31,3 +31,17 @@ export const AppBar = () => {
 		</header>
 	);
 };
+
+const AppBarResourceItem = (props: { resource: ResourceDefinition }) => {
+	const translate = useTranslate();
+	const title = () =>
+		translate(`resources.${props.resource.name}.name`, {
+			_: humanize(pluralize(props.resource.name)),
+			smart_count: 2,
+		});
+	return (
+		<li>
+			<Link href={`/${props.resource.name}`}>{title}</Link>
+		</li>
+	);
+}

@@ -1,4 +1,4 @@
-import { Admin, Resource, fakeRestDataProvider } from '../admin';
+import { Admin, Resource, fakeRestDataProvider, I18nProviderPolyglot } from '../admin';
 import { DataRecord } from '../admin/record';
 import { CommentCreate } from './comments/comment-create';
 import { CommentEdit } from './comments/comment-edit';
@@ -18,15 +18,14 @@ const messages = {
 			updated: 'Element updated',
 		},
 	},
+	resources: {
+		posts: {
+			name: 'Blog Post |||| Blog Posts',
+		}
+	}
 };
 
-const i18nProvider = {
-	translate: (key: string, options: any) => {
-		return get(messages, key) || key;
-	},
-	changeLocale: (locale: string) => Promise.resolve(),
-	getLocale: () => 'en',
-}
+const i18nProvider = I18nProviderPolyglot(() => messages);
 
 export const App = () => {
 	return (
