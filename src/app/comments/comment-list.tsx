@@ -7,8 +7,6 @@ import {
 	ReferenceField,
 	TextField,
 	ShowButton,
-	useSetAppTitle,
-	AppTitle,
 } from '../../admin';
 
 const CommentColumns: ColumnDef<any, any>[] = [
@@ -38,10 +36,9 @@ const CommentColumns: ColumnDef<any, any>[] = [
 	},
 ];
 
-export const CommentList = (props: any) => {
+export const CommentList = () => {
 	return (
 		<div class="flex flex-col p-4 gap-4">
-			<AppTitle>Comments</AppTitle>
 			<div class="flex flex-row justify-between">
 				<CreateButton />
 			</div>
