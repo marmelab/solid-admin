@@ -1,15 +1,42 @@
-import { ColumnDef, createSolidTable, flexRender, getCoreRowModel } from '@tanstack/solid-table';
-import { For, mergeProps, Show } from 'solid-js';
+import {
+	ColumnDef,
+	createSolidTable,
+	flexRender,
+	getCoreRowModel,
+	getSortedRowModel,
+	SortingState,
+} from '@tanstack/solid-table';
+import { createEffect, createSignal, For, mergeProps, Show } from 'solid-js';
+import { arrowSmallDown, arrowSmallUp } from 'solid-heroicons/solid';
+import { Icon } from 'solid-heroicons';
 import { RecordProvider, useList } from '../../../core';
 
 export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 	const list = useList();
+	const [sorting, setSorting] = createSignal<SortingState>([{ id: list?.sort().field ?? 'id', desc: list?.sort().order === 'DESC' }]);
+
+	createEffect(() => {
+		const newSorting = sorting();
+
+		if (newSorting.length > 0) {
+			const order = newSorting[0].desc ? 'DESC' : 'ASC';
+			const field = newSorting[0].id;
+			list?.setSort({ field, order });
+		}
+	});
 	const table = createSolidTable({
 		get data() {
 			return list?.data() ?? [];
 		},
 		columns: props.columns,
+		state: {
+			get sorting() {
+				return sorting();
+			},
+		},
+		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
+		getSortedRowModel: getSortedRowModel(),
 	});
 	return (
 		<div class="overflow-x-auto w-full flex flex-col gap-4">
@@ -19,22 +46,22 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 						{(headerGroup) => (
 							<tr>
 								<For each={headerGroup.headers}>
-									{(header) => (
-										<th colSpan={header.colSpan}>
-											<Show when={!header.isPlaceholder}>
-												<div
-													class={header.column.getCanSort() ? 'cursor-pointer select-none' : undefined}
-													onClick={header.column.getToggleSortingHandler()}
-												>
-													{flexRender(header.column.columnDef.header, header.getContext())}
-													{{
-														asc: ' 🔼',
-														desc: ' 🔽',
-													}[header.column.getIsSorted() as string] ?? null}
-												</div>
-											</Show>
-										</th>
-									)}
+									{(header) => {
+										console.log(header.column.getIsSorted());	
+										return (
+											<th colSpan={header.colSpan}>
+												<Show when={!header.isPlaceholder}>
+													<div
+														class={header.column.getCanSort() ? 'cursor-pointer select-none' : undefined}
+														onClick={header.column.getToggleSortingHandler()}
+													>
+														{flexRender(header.column.columnDef.header, header.getContext())}
+														{header.column.getIsSorted() === 'asc' ? <Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallUp} /> : null}
+														{header.column.getIsSorted() === 'desc' ? <Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallDown} /> : null}
+													</div>
+												</Show>
+											</th>
+										);}}
 								</For>
 							</tr>
 						)}
@@ -78,7 +105,7 @@ const Pagination = (props: {
 
 	const pages = () => {
 		return Math.ceil(props.total / props.perPage);
-	}
+	};
 
 	return (
 		<div class="btn-group">
