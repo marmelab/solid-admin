@@ -1,5 +1,4 @@
 import { getValue } from '@modular-forms/solid';
-import get from 'lodash/get';
 import { createGetOneQuery } from '../crud-hooks';
 import { useForm } from '../form';
 import { createListController } from '../list';

@@ -3,7 +3,6 @@ import { SelectInput, Create, ReferenceInput, SimpleForm, TextInput } from '../.
 export const CommentCreate = () => {
 	return (
 		<div class="flex flex-col p-4 gap-4">
-			<h1>Comment Create</h1>
 			<Create resource="comments">
 				<SimpleForm>
 					<TextInput source="body" />

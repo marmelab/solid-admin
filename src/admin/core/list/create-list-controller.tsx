@@ -1,12 +1,13 @@
 import { useSearchParams } from '@solidjs/router';
 import { createEffect, createSignal, mergeProps } from 'solid-js';
-import { ListContext } from '../list-context';
+import { ListContextValue } from '../list-context';
 import { useResource } from '../resource';
 import { createGetListQuery } from '../crud-hooks/create-get-list-query';
 
-export const createListController = (options?: CreateListControllerOptions): ListContext => {
+export const createListController = (options?: CreateListControllerOptions): ListContextValue => {
 	const resource = useResource(options);
 	const [searchParams, setSearchParams] = useSearchParams();
+	
 	const merged = mergeProps({ page: 1, perPage: 10, sort: 'id', order: 'ASC', filter: {} }, options, {
 		page: searchParams.page ? parseInt(searchParams.page) : undefined,
 		perPage: searchParams.perPage ? parseInt(searchParams.perPage) : undefined,
@@ -54,6 +55,10 @@ export const createListController = (options?: CreateListControllerOptions): Lis
 		setSearchParams({ page });
 	};
 
+	const setSort = (params: { field: string; order: string }) => {
+		setSearchParams({ sort: params.field, order: params.order });
+	};
+
 	const setFilter = (filter: any) => {
 		setSearchParams({ filter: JSON.stringify(filter) });
 	};
@@ -63,6 +68,7 @@ export const createListController = (options?: CreateListControllerOptions): Lis
 		total,
 		isLoading,
 		setPage,
+		setSort,
 		setFilter,
 		pagination: () => params().pagination,
 		sort: () => params().sort,
