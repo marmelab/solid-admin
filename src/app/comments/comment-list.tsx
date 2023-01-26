@@ -16,6 +16,11 @@ const CommentColumns: ColumnDef<any, any>[] = [
 		cell: () => <TextField source="id" />,
 	},
 	{
+		accessorKey: 'body',
+		header: 'body',
+		cell: () => <TextField source="body" class="neutral-content inline-block truncate max-w-sm" />,
+	},
+	{
 		accessorKey: 'post_id',
 		header: 'Post',
 		cell: () => (
