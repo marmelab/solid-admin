@@ -24,7 +24,7 @@ export const CoreAdmin = (props: any) => {
 							<Routes>
 								<Route path="/" component={props.layout}>
 									{/* TODO: pass dashboard component or element if provided through Admin props */}
-									<Dashboard />
+									<Dashboard element={props.dashboard} />
 									{props.children}
 								</Route>
 							</Routes>
