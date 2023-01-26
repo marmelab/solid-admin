@@ -37,6 +37,8 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 		onSortingChange: setSorting,
 		getCoreRowModel: getCoreRowModel(),
 		getSortedRowModel: getSortedRowModel(),
+		manualSorting: true,
+		manualPagination: true,
 	});
 	return (
 		<div class="overflow-x-auto w-full flex flex-col gap-4">
@@ -47,7 +49,6 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 							<tr>
 								<For each={headerGroup.headers}>
 									{(header) => {
-										console.log(header.column.getIsSorted());	
 										return (
 											<th colSpan={header.colSpan}>
 												<Show when={!header.isPlaceholder}>
@@ -56,8 +57,12 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 														onClick={header.column.getToggleSortingHandler()}
 													>
 														{flexRender(header.column.columnDef.header, header.getContext())}
-														{header.column.getIsSorted() === 'asc' ? <Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallUp} /> : null}
-														{header.column.getIsSorted() === 'desc' ? <Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallDown} /> : null}
+														<Show when={header.column.getIsSorted() === 'asc'}>
+															<Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallUp} />
+														</Show>
+														<Show when={header.column.getIsSorted() === 'desc'}>
+															<Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallDown} />
+														</Show>
 													</div>
 												</Show>
 											</th>
