@@ -4,6 +4,7 @@ import {
 	flexRender,
 	getCoreRowModel,
 	getSortedRowModel,
+	Header,
 	SortingState,
 } from '@tanstack/solid-table';
 import { createEffect, createSignal, For, mergeProps, Show } from 'solid-js';
@@ -13,7 +14,9 @@ import { RecordProvider, useList } from '../../../core';
 
 export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 	const list = useList();
-	const [sorting, setSorting] = createSignal<SortingState>([{ id: list?.sort().field ?? 'id', desc: list?.sort().order === 'DESC' }]);
+	const [sorting, setSorting] = createSignal<SortingState>([
+		{ id: list?.sort().field ?? 'id', desc: list?.sort().order === 'DESC' },
+	]);
 
 	createEffect(() => {
 		const newSorting = sorting();
@@ -40,6 +43,14 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 		manualSorting: true,
 		manualPagination: true,
 	});
+
+	const handleHeaderClick = (header: Header<unknown, unknown>, event: MouseEvent) => {
+		event.preventDefault();
+		if (header.column.getCanSort()) {
+			header.column.toggleSorting(header.column.getIsSorted() === 'asc' ? true : false);
+		}
+	};
+
 	return (
 		<div class="overflow-x-auto w-full flex flex-col gap-4">
 			<table class="table table-compact w-full">
@@ -52,21 +63,27 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 										return (
 											<th colSpan={header.colSpan}>
 												<Show when={!header.isPlaceholder}>
-													<div
-														class={header.column.getCanSort() ? 'cursor-pointer select-none' : undefined}
-														onClick={header.column.getToggleSortingHandler()}
+													<Show
+														when={header.column.getCanSort()}
+														fallback={flexRender(header.column.columnDef.header, header.getContext())}
 													>
-														{flexRender(header.column.columnDef.header, header.getContext())}
-														<Show when={header.column.getIsSorted() === 'asc'}>
-															<Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallUp} />
-														</Show>
-														<Show when={header.column.getIsSorted() === 'desc'}>
-															<Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallDown} />
-														</Show>
-													</div>
+														<button
+															class={header.column.getCanSort() ? 'uppercase cursor-pointer select-none' : undefined}
+															onClick={[handleHeaderClick, header]}
+														>
+															{flexRender(header.column.columnDef.header, header.getContext())}
+															<Show when={header.column.getIsSorted() === 'asc'}>
+																<Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallUp} />
+															</Show>
+															<Show when={header.column.getIsSorted() === 'desc'}>
+																<Icon class="h-4 w-4 inline-block ml-2" path={arrowSmallDown} />
+															</Show>
+														</button>
+													</Show>
 												</Show>
 											</th>
-										);}}
+										);
+									}}
 								</For>
 							</tr>
 						)}
