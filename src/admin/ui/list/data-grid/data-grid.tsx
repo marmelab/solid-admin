@@ -61,7 +61,10 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 								<For each={headerGroup.headers}>
 									{(header) => {
 										return (
-											<th colSpan={header.colSpan}>
+											<th
+												colSpan={header.colSpan}
+												aria-sort={header.column.getIsSorted() === 'asc' ? 'ascending' : 'descending'}
+											>
 												<Show when={!header.isPlaceholder}>
 													<Show
 														when={header.column.getCanSort()}
