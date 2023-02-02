@@ -8,7 +8,7 @@ install: package.json ## Install dependencies
 	npm install
 
 start: ## Start the app
-	npm start
+	npm run dev
 
 build: ## Build the app
 	npm run build

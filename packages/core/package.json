@@ -1,0 +1,31 @@
+{
+	"name": "@solid-admin/core",
+	"version": "0.0.1",
+	"authors": [
+		"Gildas Garcia"
+	],
+	"description": "",
+	"type": "module",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"types": "dist/cjs/index.d.ts",
+	"sideEffects": false,
+	"scripts": {
+		"build": "yarn run build-cjs && yarn run build-esm",
+		"build-cjs": "rimraf ./dist/cjs && tsc --outDir dist/cjs",
+		"build-esm": "rimraf ./dist/esm && tsc --outDir dist/esm --module es2015",
+		"test": "vitest",
+		"lint": "eslint --ext .ts,.tsx src",
+		"format": "prettier --write ."
+	},
+	"license": "MIT",
+	"dependencies": {
+		"@modular-forms/solid": "^0.10.0",
+		"@solidjs/router": "^0.7.0",
+		"@tanstack/solid-query": "^4.22.0",
+		"inflection": "^2.0.1",
+		"lodash": "^4.17.21",
+		"solid-js": "^1.6.2",
+		"zod": "^3.20.2"
+	}
+}

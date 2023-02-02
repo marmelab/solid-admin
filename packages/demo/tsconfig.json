@@ -1,0 +1,14 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "src",
+		"paths": {
+			"@solid-admin/core": ["../core/src"],
+			"@solid-admin/ui": ["../ui/src"]
+		},
+		"jsx": "preserve",
+		"jsxImportSource": "solid-js",
+		"types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"]
+	},
+	"include": ["./src"]
+}

@@ -1,0 +1,33 @@
+{
+	"name": "solid-admin-monorepo",
+	"version": "0.0.0",
+	"authors": [
+		"Gildas Garcia"
+	],
+	"description": "",
+	"private": true,
+	"scripts": {
+		"start": "vite",
+		"dev": "vite --force",
+		"build": "vite build",
+		"serve": "vite preview",
+		"test": "vitest",
+		"lint": "eslint --ext .ts,.tsx src",
+		"format": "prettier --write ."
+	},
+	"license": "MIT",
+	"devDependencies": {
+		"autoprefixer": "^10.4.13",
+		"daisyui": "^2.43.2",
+		"postcss": "^8.4.20",
+		"tailwindcss": "^3.2.4"
+	},
+	"dependencies": {
+		"@solid-admin/core": "^0.0.1",
+		"@solid-admin/ui": "^0.0.1",
+		"@solid-devtools/overlay": "^0.4.3",
+		"fakerest": "^3.5.0",
+		"node-polyglot": "^2.4.2",
+		"solid-js": "^1.6.2"
+	}
+}
