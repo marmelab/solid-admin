@@ -1,5 +1,5 @@
 import { Edit, ReferenceInput } from '@solid-admin/core';
-import { SelectInput, SimpleForm, TextInput } from '@solid-admin/ui-daisy';
+import { DateInput, SelectInput, SimpleForm, TextInput } from '@solid-admin/ui-daisy';
 
 export const CommentEdit = () => {
 	return (
@@ -10,6 +10,7 @@ export const CommentEdit = () => {
 					<ReferenceInput reference="posts" source="post_id">
 						<SelectInput source="post_id" optionText="title" />
 					</ReferenceInput>
+					<DateInput source="created_at" />
 				</SimpleForm>
 			</Edit>
 		</div>
