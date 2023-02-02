@@ -2,10 +2,10 @@ import { JSX } from 'solid-js';
 import { Field } from '@modular-forms/solid';
 import { useForm } from '@solid-admin/core';
 
-export const TextInput = (props: {
+export const NumberInput = (props: {
 	label?: string;
 	source: string;
-	inputProps?: JSX.InputHTMLAttributes<HTMLInputElement>;
+	inputProps: JSX.InputHTMLAttributes<HTMLInputElement>;
 }) => {
 	const form = useForm();
 
@@ -18,7 +18,7 @@ export const TextInput = (props: {
 					</label>
 					<input
 						{...field.props}
-						type="text"
+						type="number"
 						placeholder="Type here"
 						class="input input-bordered w-full max-w-xs"
 						value={field.value?.toString() || ''}
