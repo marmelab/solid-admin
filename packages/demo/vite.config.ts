@@ -3,6 +3,21 @@
 
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
+import fs from 'fs';
+import path from 'path';
+
+const packages = fs.readdirSync(path.resolve(__dirname, '..'));
+const aliases = packages.reduce((acc, dirName) => {
+	const packageJson = require(path.resolve(__dirname, '..', dirName, 'package.json'));
+	if (packageJson.name.startsWith('@solid-admin/')) {
+		acc[packageJson.name] = path.resolve(
+			__dirname,
+			`${path.resolve('..')}/${packageJson.name.replace('@solid-admin/', '')}/src`,
+		);
+	}
+	return acc;
+}, {});
+console.log({ aliases });
 
 export default defineConfig({
 	plugins: [solidPlugin()],
@@ -26,5 +41,13 @@ export default defineConfig({
 	},
 	resolve: {
 		conditions: ['development', 'browser'],
-	}
+		preserveSymlinks: true,
+		alias: [
+			// we need to manually follow the symlinks for local packages to allow deep HMR
+			...Object.keys(aliases).map((packageName) => ({
+				find: packageName,
+				replacement: aliases[packageName],
+			})),
+		],
+	},
 });

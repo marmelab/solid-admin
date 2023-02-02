@@ -3,8 +3,10 @@
 	"compilerOptions": {
 		"baseUrl": "src",
 		"paths": {
+			"@solid-admin/admin": ["../admin/src"],
 			"@solid-admin/core": ["../core/src"],
-			"@solid-admin/ui-daisy": ["../ui-daisy/src"]
+			"@solid-admin/data-fakerest": ["../data-fakerest/src"],
+			"@solid-admin/i18n-polyglot": ["../i18n-polyglot/src"],
 		},
 		"jsx": "preserve",
 		"jsxImportSource": "solid-js",
