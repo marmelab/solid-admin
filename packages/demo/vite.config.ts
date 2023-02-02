@@ -26,8 +26,5 @@ export default defineConfig({
 	},
 	resolve: {
 		conditions: ['development', 'browser'],
-	},
-	optimizeDeps: {
-		exclude: ['@solid-admin/core', '@solid-admin/ui', '@tanstack/solid-query'],
-	},
+	}
 });

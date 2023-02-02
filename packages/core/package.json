@@ -9,6 +9,19 @@
 	"main": "dist/cjs/index.js",
 	"module": "dist/esm/index.js",
 	"types": "dist/cjs/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/cjs/index.d.ts",
+			"solid": "./dist/cjs/index.js",
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"node": "./dist/cjs/index.js",
+			"browser": {
+				"import": "./dist/esm/index.js",
+				"require": "./dist/cjs/index.js"
+			}
+		}
+	},
 	"sideEffects": false,
 	"scripts": {
 		"build": "yarn run build-cjs && yarn run build-esm",
