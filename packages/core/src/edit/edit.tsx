@@ -8,7 +8,7 @@ import { useResource } from '../resource';
 import { useRedirect } from '../use-redirect';
 import { EditTitle } from './edit-title';
 
-export const Edit = (props: { children: JSX.Element; resource: string; id?: string; redirect?: any }) => {
+export const Edit = (props: { children: JSX.Element; resource?: string; id?: string; redirect?: any }) => {
 	const resource = useResource(props);
 	const params = useParams();
 	const mergedProps = mergeProps({ redirect: 'list' }, props);

@@ -5,7 +5,7 @@ import { useNotify } from '../notifications';
 import { DataRecord, RecordProvider } from '../record';
 import { useResource } from '../resource';
 
-export const Create = (props: { children: JSX.Element; record?: DataRecord; resource: string }) => {
+export const Create = (props: { children: JSX.Element; record?: DataRecord; resource?: string }) => {
 	const resource = useResource(props);
 	const notify = useNotify();
 	const mutation = createCreateMutation(() => ({ resource }), {

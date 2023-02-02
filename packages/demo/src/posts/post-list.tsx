@@ -1,5 +1,4 @@
-import { List } from '@solid-admin/core';
-import { DataGrid, TextField } from '@solid-admin/ui-daisy';
+import { CreateButton, DataGrid, EditButton, List, TextField } from '@solid-admin/admin';
 import { ColumnDef } from '@tanstack/solid-table';
 
 const PostColumns: ColumnDef<any, any>[] = [
@@ -13,12 +12,22 @@ const PostColumns: ColumnDef<any, any>[] = [
 		header: 'Title',
 		cell: () => <TextField source="title" />,
 	},
+	{
+		accessorKey: 'edit',
+		header: '',
+		cell: () => <EditButton />,
+	},
 ];
 
 export const PostList = () => {
 	return (
-		<List>
-			<DataGrid columns={PostColumns} />
-		</List>
+		<>
+			<div class="flex flex-row justify-between">
+				<CreateButton />
+			</div>
+			<List>
+				<DataGrid columns={PostColumns} />
+			</List>
+		</>
 	);
 };

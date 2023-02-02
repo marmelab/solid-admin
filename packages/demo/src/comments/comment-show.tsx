@@ -1,10 +1,9 @@
-import { Show, ReferenceField } from '@solid-admin/core';
-import { Label, TextField } from '@solid-admin/ui-daisy';
+import { Label, TextField, Show, ReferenceField } from '@solid-admin/admin';
 
 export const CommentShow = () => {
 	return (
 		<div class="flex flex-col p-4 gap-4">
-			<Show resource="comments">
+			<Show>
 				<Label source="body">
 					<TextField source="body" />
 				</Label>

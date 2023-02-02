@@ -1,10 +1,9 @@
-import { Create, ReferenceInput } from '@solid-admin/core';
-import { SelectInput, SimpleForm, TextInput } from '@solid-admin/ui-daisy';
+import { Create, ReferenceInput, SelectInput, SimpleForm, TextInput } from '@solid-admin/admin';
 
 export const CommentCreate = () => {
 	return (
 		<div class="flex flex-col p-4 gap-4">
-			<Create resource="comments">
+			<Create>
 				<SimpleForm>
 					<TextInput source="body" />
 					<ReferenceInput reference="posts" source="post_id">
