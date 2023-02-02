@@ -10,7 +10,10 @@
 		"dev": "cd packages/demo && npm run dev",
 		"build": "run-s build:*",
 		"build:core": "cd packages/core && npm run build",
-		"build:ui": "cd packages/ui && npm run build",
+		"build:ui-daisy": "cd packages/ui-daisy && npm run build",
+		"build:i18n-polyglot": "cd packages/i18n-polyglot && npm run build",
+		"build:data-fakerest": "cd packages/data-fakerest && npm run build",
+		"build:admin": "cd packages/admin && npm run build",
 		"test": "vitest",
 		"lint": "eslint --ext .ts,.tsx packages/**/src",
 		"format": "prettier --write ."

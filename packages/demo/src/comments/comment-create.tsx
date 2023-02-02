@@ -1,5 +1,5 @@
 import { Create, ReferenceInput } from '@solid-admin/core';
-import { SelectInput, SimpleForm, TextInput } from '@solid-admin/ui';
+import { SelectInput, SimpleForm, TextInput } from '@solid-admin/ui-daisy';
 
 export const CommentCreate = () => {
 	return (

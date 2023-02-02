@@ -1,5 +1,5 @@
 import { List } from '@solid-admin/core';
-import { DataGrid, TextField } from '@solid-admin/ui';
+import { DataGrid, TextField } from '@solid-admin/ui-daisy';
 import { ColumnDef } from '@tanstack/solid-table';
 
 const PostColumns: ColumnDef<any, any>[] = [

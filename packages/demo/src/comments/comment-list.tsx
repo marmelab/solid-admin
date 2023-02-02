@@ -1,5 +1,5 @@
 import { List, ReferenceField } from '@solid-admin/core';
-import { CreateButton, DataGrid, EditButton, TextField, ShowButton } from '@solid-admin/ui';
+import { CreateButton, DataGrid, EditButton, TextField, ShowButton } from '@solid-admin/ui-daisy';
 import { ColumnDef } from '@tanstack/solid-table';
 
 const CommentColumns: ColumnDef<any, any>[] = [

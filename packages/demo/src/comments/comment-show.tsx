@@ -1,5 +1,5 @@
 import { Show, ReferenceField } from '@solid-admin/core';
-import { Label, TextField } from '@solid-admin/ui';
+import { Label, TextField } from '@solid-admin/ui-daisy';
 
 export const CommentShow = () => {
 	return (

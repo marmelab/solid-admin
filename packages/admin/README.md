@@ -1,15 +1,17 @@
-# @solid-admin/ui
+# @solid-admin/admin
 
-UI Components for [solid-admin](https://github.com/marmelab/solid-admin) using [DaisyUI](https://daisyui.com/).
+A complete distribution of [solid-admin](https://github.com/marmelab/solid-admin) that leverage the following packages:
+
+- [@solid-admin/ui-daisy](https://www.npmjs.com/package/@solid-admin/ui-daisy) for UI components based on [DaisyUI](https://daisyui.com/)
 
 ## Installation
 
 Solid-admin is available from npm. You can install it (and its required dependencies) using:
 
 ```sh
-npm install @solid-admin/ui
+npm install @solid-admin/admin
 #or
-yarn add @solid-admin/ui
+yarn add @solid-admin/admin
 ```
 
 You must configure your application to use tailwind with [DaisyUI](https://daisyui.com/) by adding a `tailwind.config.js` with the following content:
@@ -24,7 +26,7 @@ module.exports = {
 		'./src/**/*.{js,ts,jsx,tsx}',
         // This line ensures tailwind will inspect solid-admin components for classes and include them
         // in the generated CSS file.
-		path.join(path.dirname(require.resolve('@solid-admin/ui')), '**/*.(js|jsx)'),
+		path.join(path.dirname(require.resolve(@solid-admin/ui-daisy)), '**/*.(js|jsx)'),
 	],
 	darkMode: 'class',
 	theme: {
@@ -33,6 +35,10 @@ module.exports = {
 	plugins: [require('daisyui')],
 };
 ```
+
+## Usage
+
+
 
 ## License
 

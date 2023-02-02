@@ -1,4 +1,3 @@
-export * from './admin';
 export * from './buttons';
 export * from './form';
 export * from './fields';

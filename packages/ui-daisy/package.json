@@ -1,0 +1,43 @@
+{
+	"name": "@solid-admin/ui-daisy",
+	"version": "0.0.1",
+	"authors": [
+		"Gildas Garcia"
+	],
+	"description": "",
+	"type": "module",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"types": "dist/cjs/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/cjs/index.d.ts",
+			"solid": "./dist/cjs/index.js",
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"node": "./dist/cjs/index.js",
+			"browser": {
+				"import": "./dist/esm/index.js",
+				"require": "./dist/cjs/index.js"
+			}
+		}
+	},
+	"sideEffects": false,
+	"scripts": {
+		"build": "yarn run build-cjs && yarn run build-esm",
+		"build-cjs": "rimraf ./dist/cjs && tsc --outDir dist/cjs",
+		"build-esm": "rimraf ./dist/esm && tsc --outDir dist/esm --module es2015",
+		"test": "vitest",
+		"lint": "eslint --ext .ts,.tsx src",
+		"format": "prettier --write ."
+	},
+	"license": "MIT",
+	"dependencies": {
+		"@solid-admin/core": "^0.0.1",
+		"@tanstack/solid-table": "^8.7.6",
+		"clsx": "^1.2.1",
+		"lodash": "^4.17.21",
+		"solid-heroicons": "^3.1.1",
+		"solid-js": "^1.6.2"
+	}
+}

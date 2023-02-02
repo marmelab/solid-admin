@@ -1,0 +1,19 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "./types",
+		"baseUrl": "src",
+		"paths": {
+			"@solid-admin/core": ["../core/src"],
+			"@solid-admin/ui-daisy": ["../ui-daisy/src"],
+			"@solid-admin/i18n-polyglot": ["../i18n-polyglot/src"],
+		},
+		"jsx": "preserve",
+		"jsxImportSource": "solid-js",
+		"types": ["vite/client", "vitest/globals"],
+		"declaration": true,
+		"declarationMap": true,
+		"sourceMap": true
+	},
+	"include": ["./src"]
+}

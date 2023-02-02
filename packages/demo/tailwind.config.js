@@ -5,7 +5,7 @@ module.exports = {
 	content: [
 		'./index.html',
 		'./src/**/*.{js,ts,jsx,tsx}',
-		path.join(path.dirname(require.resolve('@solid-admin/ui')), '**/*.(js|jsx)'),
+		path.join(path.dirname(require.resolve('@solid-admin/ui-daisy')), '**/*.(js|jsx)'),
 	],
 	darkMode: 'class',
 	theme: {

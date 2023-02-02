@@ -9,9 +9,9 @@ type GetMessages = (locale: string) => any | Promise<any>;
  *
  * @example
  *
- * import { Admin, Resource, polyglotI18nProvider } from 'react-admin';
- * import englishMessages from 'ra-language-english';
- * import frenchMessages from 'ra-language-french';
+ * import { Admin, Resource, polyglotI18nProvider } from '@solid-admin/admin';
+ * import englishMessages from './i18n/en';
+ * import frenchMessages from './i18n/fr';
  *
  * const messages = {
  *     fr: frenchMessages,
@@ -23,10 +23,10 @@ type GetMessages = (locale: string) => any | Promise<any>;
  *     [{ locale: 'en', name: 'English' }, { locale: 'fr', name: 'Français' }]
  * )
  */
-export const I18nProviderPolyglot = (
+export const polyglotI18nProvider = (
 	getMessages: GetMessages,
 	initialLocale: string = 'en',
-	availableLocales: Locale[] | any = [{ locale: 'en', name: 'English' }],
+	availableLocales: Locale[] = [{ locale: 'en', name: 'English' }],
 	polyglotOptions: any = {},
 ): I18nProvider => {
 	let locale = initialLocale;
@@ -37,7 +37,9 @@ export const I18nProviderPolyglot = (
 		);
 	}
 
-	let availableLocalesFinal, polyglotOptionsFinal;
+	let availableLocalesFinal: Locale[];
+	let polyglotOptionsFinal: any;
+
 	if (Array.isArray(availableLocales)) {
 		// third argument is an array of locales
 		availableLocalesFinal = availableLocales;

@@ -10,13 +10,13 @@ function log(type: string, resource: string, params: any, response: any) {
 }
 
 /**
- * Respond to react-admin data queries using a local JavaScript object
+ * Respond to solid-admin data queries using a local JavaScript object
  *
  * Useful for debugging and testing - do not use in production.
  *
  * @example
  *
- * import fakeDataProvider from 'ra-data-fakerest';
+ * import fakeDataProvider from '@solid-admin/data-fakerest';
  * const dataProvider = fakeDataProvider({
  *   posts: [
  *     { id: 0, title: 'Hello, world!' },

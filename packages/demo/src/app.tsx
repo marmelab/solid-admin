@@ -1,6 +1,5 @@
-import { Resource } from '@solid-admin/core';
-import { Admin } from '@solid-admin/ui';
-import { fakeRestDataProvider, I18nProviderPolyglot } from '../admin';
+import { Admin, Resource, polyglotI18nProvider } from '@solid-admin/admin';
+import { fakeRestDataProvider } from '@solid-admin/data-fakerest';
 import { Dashboard } from './dashboard';
 import { CommentCreate } from './comments/comment-create';
 import { CommentEdit } from './comments/comment-edit';
@@ -25,7 +24,7 @@ const messages = {
 	},
 };
 
-const i18nProvider = I18nProviderPolyglot(() => messages);
+const i18nProvider = polyglotI18nProvider(() => messages);
 
 export const App = () => {
 	return (

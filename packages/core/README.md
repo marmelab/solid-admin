@@ -2,7 +2,7 @@
 
 This package contains headless components, hooks and utilities for Solid Admin, a frontend Framework for building admin applications on top of REST/GraphQL services with SolidJS.
 
-This package does not include any UI components. We also provide a default UI in the [@solid-admin/ui](https://www.npmjs.com/package/@solid-admin/ui) package.
+This package does not include any UI components. We also provide a default UI in the [@solid-admin/ui-daisy](https://www.npmjs.com/package/@solid-admin/ui-daisy) package.
 
 ## Installation
 
