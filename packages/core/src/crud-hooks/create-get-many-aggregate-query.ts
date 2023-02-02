@@ -39,7 +39,7 @@ import { DataProvider, useDataProvider } from '../data-provider';
  *
  * @example
  *
- * import { useGetManyAggregate, useRecordContext } from 'react-admin';
+ * import { useGetManyAggregate, useRecordContext } from '@solid-admin/admin';
  *
  * const PostTags = () => {
  *     const record = useRecordContext();
