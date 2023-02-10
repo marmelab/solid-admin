@@ -5,7 +5,7 @@ import { useForm } from '@solid-admin/core';
 export const DateInput = (props: {
 	label?: string;
 	source: string;
-	inputProps: JSX.InputHTMLAttributes<HTMLInputElement>;
+	inputProps?: JSX.InputHTMLAttributes<HTMLInputElement>;
 }) => {
 	const form = useForm();
 

@@ -1,4 +1,4 @@
-import { Create, NumberInput, SimpleForm, TextInput } from '@solid-admin/admin';
+import { Create, NumberInput, SimpleForm, TextInput, ToggleInput } from '@solid-admin/admin';
 
 export const PostCreate = () => {
 	return (
@@ -9,6 +9,7 @@ export const PostCreate = () => {
 					<TextInput source="teaser" />
 					<TextInput source="body" />
 					<NumberInput source="views" />
+					<ToggleInput source="commentable" />
 				</SimpleForm>
 			</Create>
 		</div>

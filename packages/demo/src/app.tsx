@@ -9,6 +9,7 @@ import { CommentShow } from './comments/comment-show';
 import { PostList } from './posts/post-list';
 import { PostCreate } from './posts/post-create';
 import { PostEdit } from './posts/post-edit';
+import { PostShow } from './posts/post-show';
 
 const dataProvider = fakeRestDataProvider(data, process.env.NODE_ENV !== 'test');
 
@@ -32,7 +33,7 @@ export const App = () => {
 	return (
 		<div data-theme="corporate">
 			<Admin dataProvider={dataProvider} i18nProvider={i18nProvider} dashboard={<Dashboard />}>
-				<Resource name="posts" list={PostList} create={PostCreate} edit={PostEdit} />
+				<Resource name="posts" list={PostList} create={PostCreate} edit={PostEdit} show={PostShow} />
 				<Resource
 					name="comments"
 					list={CommentList}

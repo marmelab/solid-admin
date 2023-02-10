@@ -2,10 +2,10 @@ import { JSX } from 'solid-js';
 import { Field } from '@modular-forms/solid';
 import { useForm } from '@solid-admin/core';
 
-export const NumberInput = (props: {
+export const ToggleInput = (props: {
 	label?: string;
 	source: string;
-	inputProps?: JSX.InputHTMLAttributes<HTMLInputElement>;
+	inputProps: JSX.InputHTMLAttributes<HTMLInputElement>;
 }) => {
 	const form = useForm();
 
@@ -18,10 +18,9 @@ export const NumberInput = (props: {
 					</label>
 					<input
 						{...field.props}
-						type="number"
-						placeholder="Type here"
-						class="input input-bordered w-full max-w-xs"
-						value={field.value?.toString() || ''}
+						type="checkbox"
+						class="toggle"
+						checked={!!field.value || false}
 						{...props.inputProps}
 					/>
 				</div>
