@@ -8,14 +8,17 @@ export const createGetOneQuery = <
 	TError = unknown,
 >(
 	variables: () => { resource: string; params: { id: Identifier }; meta?: TMeta },
-	options?: Omit<CreateQueryOptions<{ data: TRecord }, TError, TRecord>, 'queryKey' | 'queryFn' | 'initialData'>,
+	options?: Omit<
+		CreateQueryOptions<{ data: TRecord }, TError, { data: TRecord }>,
+		'queryKey' | 'queryFn' | 'initialData'
+	>,
 ) => {
 	const dataProvider = useDataProvider();
 	const resource = () => variables().resource;
 	const params = () => variables().params;
 	const meta = () => variables().meta;
 
-	const query = createQuery<{ data: TRecord }, TError, TRecord>(
+	const query = createQuery<{ data: TRecord }, TError, { data: TRecord }>(
 		() => [resource(), 'getOne', params(), meta()],
 		() => {
 			return dataProvider.getOne<TRecord, TMeta>(resource(), params(), meta());

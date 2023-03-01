@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'solid-js';
 
 export type ListContextValue = {
-	data: () => any[];
-	total: () => number;
+	data: () => any[] | undefined;
+	total: () => number | undefined;
 	isLoading: () => boolean;
 	setPage: (page: number) => void;
 	setFilter: (filter: any) => void;

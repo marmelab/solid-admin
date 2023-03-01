@@ -2,7 +2,7 @@ import { Link } from '@solidjs/router';
 import get from 'lodash/get';
 import { JSX } from 'solid-js';
 import { createGetManyAggregateQuery } from '../crud-hooks';
-import { DataRecord, RecordProvider, useRecord } from '../record';
+import { DataRecord, Identifier, RecordProvider, useRecord } from '../record';
 import { ResourceProvider } from '../resource';
 
 export const ReferenceField = (props: {
@@ -12,7 +12,7 @@ export const ReferenceField = (props: {
 	record?: DataRecord;
 }) => {
 	const record = useRecord(props);
-	const referenceId = () => get(record(), props.source);
+	const referenceId = () => get(record(), props.source) as Identifier;
 	const query = createReferenceQuery(() => ({
 		resource: props.reference,
 		id: referenceId(),
