@@ -8,7 +8,6 @@ export const Form = (props: {
 	class?: string;
 	initialValues?: any;
 	record?: DataRecord;
-	// eslint-disable-next-line no-unused-vars
 	onSubmit?: (values: any) => void;
 }) => {
 	const record = useRecord(props);

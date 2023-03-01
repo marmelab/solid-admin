@@ -103,6 +103,7 @@ export const createGetManyAggregateQuery = (variables: () => { resource: string;
  * // add will be called once with arguments [2, 8]
  * // and sum will be equal to 10
  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 const batch = (fn: Function) => {
 	let capturedArgs: any[] = [];
 	let timeout: ReturnType<typeof setTimeout> | null = null;
@@ -121,9 +122,7 @@ interface GetManyCallArgs {
 	resource: string;
 	ids: any[];
 	meta?: any;
-	// eslint-disable-next-line no-unused-vars
 	resolve: (data: any[]) => void;
-	// eslint-disable-next-line no-unused-vars
 	reject: (error?: any) => void;
 	dataProvider: DataProvider;
 	queryClient: QueryClient;

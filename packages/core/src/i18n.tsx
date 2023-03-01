@@ -7,9 +7,7 @@ const defaulti18nContext = {
 };
 
 export type I18nProvider = {
-	// eslint-disable-next-line no-unused-vars
 	translate: (key: string, options?: any) => string;
-	// eslint-disable-next-line no-unused-vars
 	changeLocale: (locale: string) => Promise<void>;
 	getLocale: () => string;
 	getLocales?: () => Locale[];

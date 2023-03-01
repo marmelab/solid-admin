@@ -5,7 +5,6 @@ export const Pagination = (props: {
 	perPage: number;
 	page: number;
 	size?: 'xs' | 'sm' | 'md' | 'lg';
-	// eslint-disable-next-line no-unused-vars
 	setPage: (page: number) => void;
 }) => {
 	const merged = mergeProps({ size: 'sm' }, props);

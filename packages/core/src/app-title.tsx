@@ -1,7 +1,6 @@
 import { createComputed, createContext, createSignal, JSX, useContext } from 'solid-js';
 
 export type AppTitleValue = JSX.Element;
-// eslint-disable-next-line no-unused-vars
 export type SetAppTitle = (title: AppTitleValue) => void;
 export type AppTitleContextValue = [AppTitleValue, SetAppTitle];
 

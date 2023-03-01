@@ -8,9 +8,7 @@ type Notification = {
 };
 
 type NotificationsContextValue = {
-	// eslint-disable-next-line no-unused-vars
 	addNotification: (notification: Notification) => void;
-	// eslint-disable-next-line no-unused-vars
 	hideNotification: (notification: Notification) => void;
 	notifications: Accessor<Notification[]>;
 };

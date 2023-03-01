@@ -79,7 +79,6 @@ export const Resource = (props: {
 	);
 };
 
-// eslint-disable-next-line no-unused-vars
 export type GetRecordRepresentation = (record: DataRecord) => JSX.Element;
 
 export type ResourceDefinition = {
@@ -110,9 +109,7 @@ export const useResource = (options?: { resource?: string }) => {
 
 export const ResourcesContext = createContext<{
 	resources: ResourceDefinition[];
-	// eslint-disable-next-line no-unused-vars
 	registerResource: (resource: ResourceDefinition) => void;
-	// eslint-disable-next-line no-unused-vars
 	unregisterResource: (resource: ResourceDefinition) => void;
 }>();
 

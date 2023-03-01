@@ -2,7 +2,6 @@ import { createContext, useContext } from 'solid-js';
 
 export const SaveContext = createContext<SaveContextValue>();
 
-// eslint-disable-next-line no-unused-vars
 export type SaveContextValue = (values: any) => Promise<any> | void;
 
 export const SaveContextProvider = (props: { value: SaveContextValue; children: any }) => {

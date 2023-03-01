@@ -1,7 +1,13 @@
 {
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["solid", "testing-library"],
-	"extends": ["eslint:recommended", "plugin:solid/typescript", "plugin:vitest-globals/recommended"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:solid/typescript",
+		"plugin:vitest-globals/recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
 	"env": {
 		"vitest-globals/env": true
 	}

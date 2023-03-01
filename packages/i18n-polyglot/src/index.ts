@@ -1,7 +1,6 @@
 import Polyglot from 'node-polyglot';
 import { I18nProvider, Locale } from '@solid-admin/core';
 
-// eslint-disable-next-line no-unused-vars
 type GetMessages = (locale: string) => any | Promise<any>;
 
 /**
@@ -25,7 +24,7 @@ type GetMessages = (locale: string) => any | Promise<any>;
  */
 export const polyglotI18nProvider = (
 	getMessages: GetMessages,
-	initialLocale: string = 'en',
+	initialLocale = 'en',
 	availableLocales: Locale[] = [{ locale: 'en', name: 'English' }],
 	polyglotOptions: any = {},
 ): I18nProvider => {
