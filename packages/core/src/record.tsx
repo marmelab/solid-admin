@@ -1,6 +1,7 @@
 import { createContext, JSX, useContext } from 'solid-js';
 
-export type DataRecord = { id: string | number };
+export type Identifier = string | number;
+export type DataRecord = { id: Identifier } & Record<string, unknown>;
 
 export const RecordContext = createContext<DataRecord | (() => DataRecord) | null | undefined>();
 

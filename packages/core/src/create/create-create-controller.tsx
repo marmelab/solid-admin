@@ -5,27 +5,36 @@ import { useNotify } from '../notifications';
 import { DataRecord } from '../record';
 import { useResource } from '../resource';
 
-export const createCreateController = (options: { record?: DataRecord; resource?: string; redirect?: RedirectTo }) => {
+export const createCreateController = <
+	TRecord extends DataRecord = DataRecord,
+	TData extends Record<string, unknown> = Record<string, unknown>,
+	TMeta extends Record<string, unknown> | undefined = undefined,
+	TError = unknown,
+	TContext = unknown,
+>(
+	options?: CreateCreateControllerOptions<TRecord, TData, TMeta, TError, TContext>,
+) => {
 	const resource = useResource(options);
 	const notify = useNotify();
 	const redirect = useRedirect();
 	const mergedOptions = mergeProps({ redirect: 'list' }, options);
 
-	const mutation = createCreateMutation(() => ({ resource }), {
-		onSuccess: () => {
+	const mutation = createCreateMutation<TRecord, TData, TMeta, TError, TContext>(() => ({ resource }), {
+		onSuccess: (data: { data: DataRecord }) => {
 			notify({
 				message: 'sa.messages.created',
 				type: 'success',
 				autoHideTimeout: 3000,
 			});
-			redirect(mergedOptions.redirect);
+			redirect(mergedOptions.redirect, { record: data.data });
 		},
-		onError: (error: Error) => {
+		onError: (error) => {
 			notify({
-				message: error.message,
+				message: (error as Error).message,
 				type: 'error',
 			});
 		},
+		...mergedOptions.mutationOptions,
 	});
 	const isMutating = () => mutation.isLoading;
 
@@ -35,3 +44,16 @@ export const createCreateController = (options: { record?: DataRecord; resource?
 		isMutating,
 	};
 };
+
+export interface CreateCreateControllerOptions<
+	TRecord extends DataRecord = DataRecord,
+	TData extends Record<string, unknown> = Record<string, unknown>,
+	TMeta extends Record<string, unknown> | undefined = undefined,
+	TError = unknown,
+	TContext = unknown,
+> {
+	record?: DataRecord;
+	resource?: string;
+	redirect?: RedirectTo;
+	mutationOptions?: Parameters<typeof createCreateMutation<TRecord, TData, TMeta, TError, TContext>>[1];
+}

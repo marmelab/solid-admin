@@ -17,7 +17,6 @@ const aliases = packages.reduce((acc, dirName) => {
 	}
 	return acc;
 }, {});
-console.log({ aliases });
 
 export default defineConfig({
 	plugins: [solidPlugin()],
