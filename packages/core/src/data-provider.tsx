@@ -3,7 +3,7 @@ import { DataRecord, Identifier } from './record';
 
 export type DataProvider = {
 	getList: (resource: string, params: any) => Promise<{ data: DataRecord[]; total: number }>;
-	getOne: <TRecord extends DataRecord = DataRecord, TMeta extends Record<string, unknown> | undefined = undefined>(
+	getOne: <TRecord extends DataRecord = DataRecord, TMeta = unknown>(
 		resource: string,
 		params: { id: Identifier },
 		meta?: TMeta,
@@ -13,7 +13,7 @@ export type DataProvider = {
 	update: <
 		TRecord extends DataRecord = DataRecord,
 		TData extends Record<string, unknown> = DataRecord,
-		TMeta extends Record<string, unknown> | undefined = undefined,
+		TMeta = unknown,
 	>(
 		resource: string,
 		params: { id: Identifier; data: TData },
@@ -25,7 +25,7 @@ export type DataProvider = {
 	create: <
 		TRecord extends DataRecord = DataRecord,
 		TData extends Record<string, unknown> = Record<string, unknown>,
-		TMeta extends Record<string, unknown> | undefined = undefined,
+		TMeta = unknown,
 	>(
 		resource: string,
 		params: { data: TData },

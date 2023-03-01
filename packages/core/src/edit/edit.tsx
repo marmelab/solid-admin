@@ -7,7 +7,7 @@ import { EditTitle } from './edit-title';
 export const Edit = <
 	TRecord extends DataRecord = DataRecord,
 	TData extends Record<string, unknown> = Record<string, unknown>,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 >(

@@ -5,7 +5,7 @@ import { useDataProvider } from '../data-provider';
 export const createCreateMutation = <
 	TRecord extends DataRecord = DataRecord,
 	TData extends Record<string, unknown> = Record<string, unknown>,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 >(

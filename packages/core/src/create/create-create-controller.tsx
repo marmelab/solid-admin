@@ -8,7 +8,7 @@ import { useResource } from '../resource';
 export const createCreateController = <
 	TRecord extends DataRecord = DataRecord,
 	TData extends Record<string, unknown> = Record<string, unknown>,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 >(
@@ -19,23 +19,26 @@ export const createCreateController = <
 	const redirect = useRedirect();
 	const mergedOptions = mergeProps({ redirect: 'list' }, options);
 
-	const mutation = createCreateMutation<TRecord, TData, TMeta, TError, TContext>(() => ({ resource }), {
-		onSuccess: (data: { data: DataRecord }) => {
-			notify({
-				message: 'sa.messages.created',
-				type: 'success',
-				autoHideTimeout: 3000,
-			});
-			redirect(mergedOptions.redirect, { record: data.data });
+	const mutation = createCreateMutation<TRecord, TData, TMeta, TError, TContext>(
+		() => ({ resource, meta: mergedOptions.meta }),
+		{
+			onSuccess: (data: { data: DataRecord }) => {
+				notify({
+					message: 'sa.messages.created',
+					type: 'success',
+					autoHideTimeout: 3000,
+				});
+				redirect(mergedOptions.redirect, { record: data.data });
+			},
+			onError: (error) => {
+				notify({
+					message: (error as Error).message,
+					type: 'error',
+				});
+			},
+			...mergedOptions.mutationOptions,
 		},
-		onError: (error) => {
-			notify({
-				message: (error as Error).message,
-				type: 'error',
-			});
-		},
-		...mergedOptions.mutationOptions,
-	});
+	);
 	const isMutating = () => mutation.isLoading;
 
 	return {
@@ -48,12 +51,13 @@ export const createCreateController = <
 export interface CreateCreateControllerOptions<
 	TRecord extends DataRecord = DataRecord,
 	TData extends Record<string, unknown> = Record<string, unknown>,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 > {
 	record?: DataRecord;
 	resource?: string;
 	redirect?: RedirectTo;
+	meta?: TMeta;
 	mutationOptions?: Parameters<typeof createCreateMutation<TRecord, TData, TMeta, TError, TContext>>[1];
 }

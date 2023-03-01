@@ -76,6 +76,34 @@ describe('createEditController', () => {
 		await screen.findByText('/posts');
 	});
 
+	test('should pass meta all the way down to the dataProvider', async () => {
+		const dataProvider = {
+			getOne: vi.fn().mockResolvedValue({ data: { id: 1 } }),
+			update: vi.fn().mockResolvedValue({ data: { id: 1 } }),
+		};
+		render(() => (
+			<QueryClientProvider client={new QueryClient()}>
+				<Router>
+					<NotificationsProvider>
+						<DataProviderProvider dataProvider={dataProvider}>
+							<ResourceProvider resource="posts">
+								<Component resource="comments" id={1} meta={{ custom: true }} />
+							</ResourceProvider>
+						</DataProviderProvider>
+					</NotificationsProvider>
+				</Router>
+			</QueryClientProvider>
+		));
+
+		await waitFor(() => expect(dataProvider.getOne).toHaveBeenCalledWith('comments', { id: 1 }, { custom: true }));
+
+		screen.getByText('Mutate').click();
+		await waitFor(() =>
+			expect(dataProvider.update).toHaveBeenCalledWith('comments', { id: 1, data: { value: 1 } }, { custom: true }),
+		);
+		await screen.findByText('/posts');
+	});
+
 	test('should redirect to the list view by default', async () => {
 		const dataProvider = {
 			getOne: vi.fn().mockResolvedValue({ data: { id: 1 } }),

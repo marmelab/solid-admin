@@ -68,6 +68,31 @@ describe('createCreateController', () => {
 		);
 	});
 
+	test('should pass meta all the way down to the dataProvider', async () => {
+		const dataProvider = {
+			create: vi.fn().mockResolvedValue({ data: { id: 1 } }),
+		};
+		render(() => (
+			<QueryClientProvider client={new QueryClient()}>
+				<Router>
+					<NotificationsProvider>
+						<DataProviderProvider dataProvider={dataProvider}>
+							<ResourceProvider resource="posts">
+								<Component resource="comments" meta={{ custom: true }} />
+							</ResourceProvider>
+						</DataProviderProvider>
+					</NotificationsProvider>
+				</Router>
+			</QueryClientProvider>
+		));
+
+		screen.getByText('Mutate').click();
+
+		await waitFor(() =>
+			expect(dataProvider.create).toHaveBeenCalledWith('comments', { data: { value: 1 } }, { custom: true }),
+		);
+	});
+
 	test('should redirect to the list view by default', async () => {
 		const dataProvider = {
 			create: vi.fn().mockResolvedValue({ data: { id: 1 } }),
@@ -161,12 +186,6 @@ describe('createCreateController', () => {
 		));
 
 		screen.getByText('Mutate').click();
-		await waitFor(() =>
-			expect(onError).toHaveBeenCalledWith(
-				{ message: 'Error' },
-				{ value: 1 },
-				undefined,
-			)
-		);
+		await waitFor(() => expect(onError).toHaveBeenCalledWith({ message: 'Error' }, { value: 1 }, undefined));
 	});
 });

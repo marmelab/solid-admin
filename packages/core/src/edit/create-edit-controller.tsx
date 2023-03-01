@@ -9,7 +9,7 @@ import { RedirectTo, useRedirect } from '../use-redirect';
 export const createEditController = <
 	TRecord extends DataRecord = DataRecord,
 	TData extends Record<string, unknown> = Record<string, unknown>,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 >(
@@ -20,18 +20,22 @@ export const createEditController = <
 	const mergedOptions = mergeProps({ redirect: 'list' }, options);
 	const redirect = useRedirect();
 	const id = () => options.id ?? params.id;
-	const query = createGetOneQuery<TRecord, TMeta, TError>(() => ({ resource, params: { id: id() } }), {
-		get enabled() {
-			return !!id();
+	const query = createGetOneQuery<TRecord, TMeta, TError>(
+		() => ({ resource, params: { id: id() }, meta: mergedOptions.meta }),
+		{
+			get enabled() {
+				return !!id();
+			},
+			...mergedOptions.queryOptions,
 		},
-		...mergedOptions.queryOptions,
-	});
+	);
 
 	const notify = useNotify();
 	const mutation = createUpdateMutation<TRecord, TData, TMeta, TError, TContext>(
 		() => ({
 			resource,
 			params: { id: id() },
+			meta: mergedOptions.meta,
 		}),
 		{
 			onSuccess: (data: { data: DataRecord }) => {
@@ -70,13 +74,14 @@ export const createEditController = <
 export interface CreateEditControllerOptions<
 	TRecord extends DataRecord = DataRecord,
 	TData extends Record<string, unknown> = Record<string, unknown>,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 > {
 	id?: Identifier;
 	resource?: string;
 	redirect?: RedirectTo;
+	meta?: TMeta;
 	queryOptions?: Parameters<typeof createGetOneQuery<TRecord, TMeta, TError>>[1];
 	mutationOptions?: Parameters<typeof createUpdateMutation<TRecord, TData, TMeta, TError, TContext>>[1];
 }

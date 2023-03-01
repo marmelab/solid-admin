@@ -4,7 +4,7 @@ import { useDataProvider } from '../data-provider';
 
 export const createGetOneQuery = <
 	TRecord extends DataRecord = DataRecord,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 >(
 	variables: () => { resource: string; params: { id: Identifier }; meta?: TMeta },
