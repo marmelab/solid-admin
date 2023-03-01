@@ -1,38 +1,19 @@
-import { JSX } from 'solid-js';
-import { createCreateMutation } from '../crud-hooks';
+import { JSX, splitProps } from 'solid-js';
 import { SaveContextProvider } from '../form/save-context';
-import { useNotify } from '../notifications';
 import { DataRecord, RecordProvider } from '../record';
-import { useResource } from '../resource';
+import { createCreateController } from './create-create-controller';
 
 export const Create = (props: { children: JSX.Element; record?: DataRecord; resource?: string }) => {
-	const resource = useResource(props);
-	const notify = useNotify();
-	const mutation = createCreateMutation(() => ({ resource }), {
-		onSuccess: () => {
-			notify({
-				message: 'sa.messages.created',
-				type: 'success',
-				autoHideTimeout: 3000,
-			});
-		},
-		onError: (error: Error) => {
-			notify({
-				message: error.message,
-				type: 'error',
-			});
-		},
-	});
+	const [localProps, controllerOptions] = splitProps(props, ['children']);
+	const controllerProps = createCreateController(controllerOptions);
+	const saveContext = {
+		save: controllerProps.mutation.mutateAsync,
+		isLoading: controllerProps.mutation.isLoading,
+	};
 
 	return (
 		<RecordProvider record={props.record}>
-			<SaveContextProvider
-				value={(values) => {
-					return mutation.mutateAsync(values);
-				}}
-			>
-				{props.children}
-			</SaveContextProvider>
+			<SaveContextProvider value={saveContext}>{localProps.children}</SaveContextProvider>
 		</RecordProvider>
 	);
 };

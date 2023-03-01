@@ -1,24 +1,27 @@
-import { useNavigate } from '@solidjs/router';
+import { useNavigate, NavigateOptions } from '@solidjs/router';
 import { useRecord } from './record';
 import { useResource } from './resource';
 
-export const useRedirect = () => {
+export const useRedirect = (): Redirect => {
 	const navigate = useNavigate();
 	const resource = useResource();
 	const record = useRecord({});
 
-	return (to: string) => {
+	return (to, options) => {
 		switch (to) {
 			case 'list':
-				return navigate(`/${resource}`);
+				return navigate(`/${resource}`, options);
 			case 'create':
-				return navigate(`/${resource}/create`);
+				return navigate(`/${resource}/create`, options);
 			case 'edit':
-				return navigate(`/${resource}/${record()?.id}`);
+				return navigate(`/${resource}/${record()?.id}`, options);
 			case 'show':
-				return navigate(`/${resource}/${record()?.id}/show`);
+				return navigate(`/${resource}/${record()?.id}/show`, options);
 			default:
-				return navigate(to);
+				return navigate(to, options);
 		}
 	};
 };
+
+export type RedirectTo = 'list' | 'create' | 'edit' | 'show' | string;
+export type Redirect = (to: RedirectTo, options?: Partial<NavigateOptions>) => void;

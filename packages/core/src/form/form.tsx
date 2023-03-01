@@ -26,7 +26,7 @@ export const Form = (props: {
 
 	return (
 		<FormContext.Provider value={form}>
-			<SolidForm of={form} onSubmit={props.onSubmit ?? saveContext} class={props.class}>
+			<SolidForm of={form} onSubmit={props.onSubmit ?? saveContext.save} class={props.class}>
 				{props.children}
 			</SolidForm>
 		</FormContext.Provider>
