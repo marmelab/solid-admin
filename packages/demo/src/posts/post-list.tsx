@@ -1,4 +1,4 @@
-import { CreateButton, DataGrid, EditButton, List, TextField } from '@solid-admin/admin';
+import { CreateButton, DataGrid, EditButton, List, ShowButton, TextField } from '@solid-admin/admin';
 import { ColumnDef } from '@tanstack/solid-table';
 
 const PostColumns: ColumnDef<any, any>[] = [
@@ -16,6 +16,11 @@ const PostColumns: ColumnDef<any, any>[] = [
 		accessorKey: 'edit',
 		header: '',
 		cell: () => <EditButton />,
+	},
+	{
+		accessorKey: 'show',
+		header: '',
+		cell: () => <ShowButton />,
 	},
 ];
 

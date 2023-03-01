@@ -1,4 +1,4 @@
-import { Edit, NumberInput, SimpleForm, TextInput } from '@solid-admin/admin';
+import { Edit, NumberInput, SimpleForm, TextInput, ToggleInput } from '@solid-admin/admin';
 
 export const PostEdit = () => {
 	return (
@@ -9,6 +9,7 @@ export const PostEdit = () => {
 					<TextInput source="teaser" />
 					<TextInput source="body" />
 					<NumberInput source="views" />
+					<ToggleInput source="commentable" />
 				</SimpleForm>
 			</Edit>
 		</div>

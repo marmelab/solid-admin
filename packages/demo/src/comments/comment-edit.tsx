@@ -5,7 +5,7 @@ export const CommentEdit = () => {
 		<div class="flex flex-col p-4 gap-4">
 			<Edit>
 				<SimpleForm>
-					<TextInput source="body" />
+					<TextInput source="body" multiline />
 					<ReferenceInput reference="posts" source="post_id">
 						<SelectInput source="post_id" optionText="title" />
 					</ReferenceInput>
