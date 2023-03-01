@@ -25,7 +25,7 @@ export const Notifications = () => {
 						) : (
 							<>
 								<div>
-									<span>{translate(notification.message as string)}</span>
+									<span>{translate(notification.message as string, notification.messageArgs)}</span>
 								</div>
 								<div class="flex-none">
 									<button

@@ -1,4 +1,13 @@
-import { List, ReferenceField, CreateButton, DataGrid, EditButton, TextField, ShowButton } from '@solid-admin/admin';
+import {
+	List,
+	ReferenceField,
+	CreateButton,
+	DataGrid,
+	EditButton,
+	TextField,
+	ShowButton,
+	DeleteButton,
+} from '@solid-admin/admin';
 import { ColumnDef } from '@tanstack/solid-table';
 
 const CommentColumns: ColumnDef<any, any>[] = [
@@ -30,6 +39,11 @@ const CommentColumns: ColumnDef<any, any>[] = [
 		accessorKey: 'show',
 		header: '',
 		cell: () => <ShowButton />,
+	},
+	{
+		accessorKey: 'delete',
+		header: '',
+		cell: () => <DeleteButton />,
 	},
 ];
 

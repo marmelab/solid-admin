@@ -12,16 +12,16 @@ export const RecordProvider = (props: {
 	return <RecordContext.Provider value={props.record}>{props.children}</RecordContext.Provider>;
 };
 
-export const useRecord = (options: {
-	record?: DataRecord | (() => DataRecord);
-}): (() => DataRecord | undefined | null) => {
-	if (options.record != null) {
+export const useRecord = <TRecord extends DataRecord = DataRecord>(options?: {
+	record?: TRecord | undefined | (() => TRecord | undefined);
+}): (() => TRecord | undefined) => {
+	if (options?.record != null) {
 		if (typeof options.record === 'function') {
 			return options.record;
 		}
-		return () => options.record as DataRecord;
+		return () => options.record as TRecord;
 	}
 
 	const record = useContext(RecordContext);
-	return typeof record === 'function' ? record : () => record;
+	return typeof record === 'function' ? (record as () => TRecord) : () => record as TRecord;
 };
