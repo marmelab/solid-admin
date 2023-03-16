@@ -33,6 +33,7 @@
 	},
 	"license": "MIT",
 	"dependencies": {
+		"@kobalte/core": "^0.7.2",
 		"@solid-admin/core": "^0.0.1",
 		"@tanstack/solid-table": "^8.7.6",
 		"clsx": "^1.2.1",

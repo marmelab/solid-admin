@@ -3,6 +3,7 @@ import { Accessor, createContext, createSignal, JSX, useContext } from 'solid-js
 type Notification = {
 	type: string;
 	message: string | JSX.Element;
+	messageArgs?: Record<string, unknown>;
 	isCancellable?: boolean;
 	autoHideTimeout?: number;
 };
