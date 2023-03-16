@@ -34,7 +34,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@modular-forms/solid": "^0.10.0",
-		"@solidjs/router": "^0.7.0",
+		"@solidjs/router": "^0.8.0",
 		"@tanstack/solid-query": "^4.22.0",
 		"inflection": "^2.0.1",
 		"lodash": "^4.17.21",
