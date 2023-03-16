@@ -3,7 +3,7 @@ import { createGetOneQuery } from '../crud-hooks';
 import { useForm } from '../form';
 import { createListController } from '../list';
 import { ListContext } from '../list-context';
-import { DataRecord, RecordProvider } from '../record';
+import { DataRecord, Identifier, RecordProvider } from '../record';
 
 export const ReferenceInput = (props: {
 	label?: string;
@@ -14,7 +14,7 @@ export const ReferenceInput = (props: {
 }) => {
 	const form = useForm();
 	const referenceId = () => {
-		return getValue(form, props.source);
+		return getValue(form, props.source) as Identifier;
 	};
 
 	const recordQuery = createGetOneQuery(

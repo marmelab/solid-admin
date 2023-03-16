@@ -1,12 +1,13 @@
 import { createContext, JSX, useContext } from 'solid-js';
 
-export type DataRecord = { id: string | number };
+export type Identifier = string | number;
+export type DataRecord = { id: Identifier } & Record<string, unknown>;
 
-export const RecordContext = createContext<DataRecord | (() => DataRecord) | null | undefined>();
+export const RecordContext = createContext<DataRecord | (() => DataRecord | undefined) | undefined>();
 
 export const RecordProvider = (props: {
 	children: JSX.Element;
-	record: DataRecord | (() => DataRecord) | null | undefined;
+	record: DataRecord | (() => DataRecord | undefined) | undefined;
 }) => {
 	return <RecordContext.Provider value={props.record}>{props.children}</RecordContext.Provider>;
 };

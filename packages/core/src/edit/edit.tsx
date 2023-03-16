@@ -1,60 +1,30 @@
-import { useParams } from '@solidjs/router';
-import { JSX, mergeProps } from 'solid-js';
-import { createUpdateMutation, createGetOneQuery } from '../crud-hooks';
+import { JSX, splitProps } from 'solid-js';
 import { SaveContextProvider } from '../form/save-context';
-import { useNotify } from '../notifications';
-import { RecordProvider } from '../record';
-import { useResource } from '../resource';
-import { useRedirect } from '../use-redirect';
+import { DataRecord, RecordProvider } from '../record';
+import { createEditController, CreateEditControllerOptions } from './create-edit-controller';
 import { EditTitle } from './edit-title';
 
-export const Edit = (props: { children: JSX.Element; resource?: string; id?: string; redirect?: any }) => {
-	const resource = useResource(props);
-	const params = useParams();
-	const mergedProps = mergeProps({ redirect: 'list' }, props);
-	const redirect = useRedirect();
-	const id = () => props.id ?? params.id;
-	const query = createGetOneQuery(() => ({ resource, params: { id: id() } }), {
-		get enabled() {
-			return !!id();
-		},
-	});
-
-	const notify = useNotify();
-	const mutation = createUpdateMutation(
-		() => ({
-			resource,
-			params: { id: id() },
-		}),
-		{
-			onSuccess: () => {
-				notify({
-					message: 'sa.messages.updated',
-					type: 'success',
-					autoHideTimeout: 3000,
-				});
-				redirect(mergedProps.redirect);
-			},
-			onError: (error: Error) => {
-				notify({
-					message: error.message,
-					type: 'error',
-				});
-			},
-		},
-	);
-
-	const record = () => query.data?.data;
+export const Edit = <
+	TRecord extends DataRecord = DataRecord,
+	TData extends Record<string, unknown> = Record<string, unknown>,
+	TMeta = unknown,
+	TError = unknown,
+	TContext = unknown,
+>(
+	props: { children: JSX.Element } & CreateEditControllerOptions<TRecord, TData, TMeta, TError, TContext>,
+) => {
+	const [localProps, controllerOptions] = splitProps(props, ['children']);
+	const controllerProps = createEditController<TRecord, TData, TMeta, TError, TContext>(controllerOptions);
+	const saveContext = {
+		save: controllerProps.mutation.mutateAsync,
+		isLoading: controllerProps.mutation.isLoading,
+	};
 
 	return (
-		<RecordProvider record={record}>
-			<SaveContextProvider
-				value={(values) => {
-					return mutation.mutateAsync(values);
-				}}
-			>
+		<RecordProvider record={controllerProps.data}>
+			<SaveContextProvider value={saveContext}>
 				<EditTitle />
-				{props.children}
+				{localProps.children}
 			</SaveContextProvider>
 		</RecordProvider>
 	);

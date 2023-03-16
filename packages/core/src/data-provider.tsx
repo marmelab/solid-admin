@@ -1,15 +1,36 @@
 import { createContext, useContext } from 'solid-js';
+import { DataRecord, Identifier } from './record';
 
 export type DataProvider = {
-	getList: (resource: string, params: any) => Promise<any>;
-	getOne: (resource: string, params: any) => Promise<any>;
-	getMany: (resource: string, params: any) => Promise<any>;
-	getManyReference: (resource: string, params: any) => Promise<any>;
-	update: (resource: string, params: any) => Promise<any>;
+	getList: (resource: string, params: any) => Promise<{ data: DataRecord[]; total: number }>;
+	getOne: <TRecord extends DataRecord = DataRecord, TMeta = unknown>(
+		resource: string,
+		params: { id: Identifier },
+		meta?: TMeta,
+	) => Promise<{ data: TRecord }>;
+	getMany: (resource: string, params: any) => Promise<{ data: DataRecord[] }>;
+	getManyReference: (resource: string, params: any) => Promise<{ data: DataRecord[]; total: number }>;
+	update: <
+		TRecord extends DataRecord = DataRecord,
+		TData extends Record<string, unknown> = DataRecord,
+		TMeta = unknown,
+	>(
+		resource: string,
+		params: { id: Identifier; data: TData },
+		meta?: TMeta,
+	) => Promise<{ data: TRecord }>;
 	updateMany: (resource: string, params: any) => Promise<any>;
-	delete: (resource: string, params: any) => Promise<any>;
+	delete: (resource: string, params: any) => Promise<{ data?: DataRecord }>;
 	deleteMany: (resource: string, params: any) => Promise<any>;
-	create: (resource: string, params: any) => Promise<any>;
+	create: <
+		TRecord extends DataRecord = DataRecord,
+		TData extends Record<string, unknown> = Record<string, unknown>,
+		TMeta = unknown,
+	>(
+		resource: string,
+		params: { data: TData },
+		meta?: TMeta,
+	) => Promise<{ data: TRecord }>;
 };
 
 export const DataProviderContext = createContext<DataProvider>();

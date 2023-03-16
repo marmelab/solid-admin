@@ -1,17 +1,27 @@
-import { createQuery } from '@tanstack/solid-query';
+import { createQuery, CreateQueryOptions } from '@tanstack/solid-query';
+import { DataRecord, Identifier } from '../record';
 import { useDataProvider } from '../data-provider';
 
-type CreateGetOneQueryVariables = () => { resource: string; params: any };
-
-export const createGetOneQuery = (variables: CreateGetOneQueryVariables, options?: any) => {
+export const createGetOneQuery = <
+	TRecord extends DataRecord = DataRecord,
+	TMeta = unknown,
+	TError = unknown,
+>(
+	variables: () => { resource: string; params: { id: Identifier }; meta?: TMeta },
+	options?: Omit<
+		CreateQueryOptions<{ data: TRecord }, TError, { data: TRecord }>,
+		'queryKey' | 'queryFn' | 'initialData'
+	>,
+) => {
 	const dataProvider = useDataProvider();
 	const resource = () => variables().resource;
 	const params = () => variables().params;
+	const meta = () => variables().meta;
 
-	const query = createQuery(
-		() => [resource(), 'getOne', params()],
-		({ queryKey }) => {
-			return dataProvider.getOne(queryKey[0].toString(), queryKey[2]);
+	const query = createQuery<{ data: TRecord }, TError, { data: TRecord }>(
+		() => [resource(), 'getOne', params(), meta()],
+		() => {
+			return dataProvider.getOne<TRecord, TMeta>(resource(), params(), meta());
 		},
 		options,
 	);
