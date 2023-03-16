@@ -4,22 +4,33 @@ import { useDataProvider } from '../data-provider';
 
 export const createDeleteMutation = <
 	TRecord extends DataRecord = DataRecord,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 >(
-	variables: () => { resource: string; params?: () => { id: Identifier | undefined }; meta?: TMeta },
-	options?: Omit<CreateMutationOptions<{ data?: TRecord }, TError, Identifier | void, TContext>, 'mutationFn'>,
+	variables: () => { resource: string; params?: () => { id: Identifier } | undefined; meta?: TMeta },
+	options?: Omit<
+		CreateMutationOptions<{ data?: TRecord }, TError, { id: Identifier } | undefined, TContext>,
+		'mutationFn'
+	>,
 ) => {
 	const dataProvider = useDataProvider();
 
-	const mutation = createMutation<{ data?: TRecord }, TError, Identifier | void, TContext>((calltimeId) => {
-		const { params, resource, meta } = variables();
-		const id = params?.().id ?? (calltimeId as Identifier);
-		console.log(params?.());
-
-		return dataProvider.delete<TRecord, TMeta>(resource, { id }, meta);
+	const mutation = createMutation<{ data?: TRecord }, TError, { id: Identifier } | undefined, TContext>((params) => {
+		const { resource, meta } = variables();
+		if (params == null) {
+			throw new Error('The delete mutation parameters are missing');
+		}
+		return dataProvider.delete<TRecord, TMeta>(resource, params, meta);
 	}, options);
 
-	return mutation;
+	return {
+		...mutation,
+		mutate: (calltimePrams?: { id: Identifier }) => {
+			const { params } = variables();
+			const finalParams = params?.() ?? calltimePrams;
+
+			return mutation.mutate(finalParams);
+		},
+	};
 };

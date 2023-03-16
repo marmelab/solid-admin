@@ -1,4 +1,4 @@
-import { DataRecord, useRecord } from '../record';
+import { DataRecord, Identifier, useRecord } from '../record';
 import { createDeleteMutation } from '../crud-hooks';
 import { useResource } from '../resource';
 import { useNotify } from '../notifications';
@@ -8,7 +8,7 @@ import { useQueryClient } from '@tanstack/solid-query';
 
 export const createDeleteController = <
 	TRecord extends DataRecord = DataRecord,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 >(
@@ -25,7 +25,7 @@ export const createDeleteController = <
 		() => ({
 			resource,
 			params: () => ({
-				id: record()?.id,
+				id: record()?.id as Identifier,
 			}),
 			meta: mergedOptions.meta,
 		}),
@@ -57,7 +57,7 @@ export const createDeleteController = <
 
 export interface CreateDeleteControllerOptions<
 	TRecord extends DataRecord = DataRecord,
-	TMeta extends Record<string, unknown> | undefined = undefined,
+	TMeta = unknown,
 	TError = unknown,
 	TContext = unknown,
 > {

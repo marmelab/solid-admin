@@ -20,7 +20,7 @@ export type DataProvider = {
 		meta?: TMeta,
 	) => Promise<{ data: TRecord }>;
 	updateMany: (resource: string, params: any) => Promise<any>;
-	delete: <TRecord extends DataRecord = DataRecord, TMeta extends Record<string, unknown> | undefined = undefined>(
+	delete: <TRecord extends DataRecord = DataRecord, TMeta = unknown>(
 		resource: string,
 		params: { id: Identifier },
 		meta?: TMeta,

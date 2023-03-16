@@ -1,7 +1,7 @@
 import { Dialog } from '@kobalte/core';
 import { CreateDeleteControllerOptions, DataRecord, createDeleteController, useTranslate } from '@solid-admin/core';
 import clsx from 'clsx';
-import { createSignal, JSX, Show, splitProps } from 'solid-js';
+import { JSX, splitProps } from 'solid-js';
 
 export const DeleteButton = <
 	TRecord extends DataRecord = DataRecord,
@@ -23,25 +23,15 @@ export const DeleteButton = <
 	]);
 	const label = () => translate(local.label ?? 'ra.action.delete', { _: 'Delete' });
 	const controller = createDeleteController<TRecord, TMeta, TError, TContext>(local);
-	const [showConfirm, setShowConfirm] = createSignal(false);
-
-	const handleClick = () => {
-		setShowConfirm(true);
-	};
 
 	const handleConfirm = () => {
-		setShowConfirm(false);
 		controller.mutation.mutate();
-	};
-
-	const handleClose = () => {
-		setShowConfirm(false);
 	};
 
 	return (
 		<Dialog.Root>
 			<Dialog.Trigger>
-				<button class={clsx('btn btn-sm', local.class)} type="button" onClick={handleClick} {...rest}>
+				<button class={clsx('btn btn-sm', local.class)} type="button" {...rest}>
 					{label()}
 				</button>
 			</Dialog.Trigger>
@@ -70,7 +60,7 @@ export const DeleteButton = <
 									{translate('ra.action.confirm', { _: 'Confirm' })}
 								</button>
 								<Dialog.CloseButton>
-									<button class="btn" onClick={handleClose}>
+									<button class="btn">
 										{translate('ra.action.cancel', { _: 'Cancel' })}
 									</button>
 								</Dialog.CloseButton>
