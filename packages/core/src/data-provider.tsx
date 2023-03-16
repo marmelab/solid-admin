@@ -1,3 +1,4 @@
+import { useCheckError } from './auth';
 import { createContext, useContext } from 'solid-js';
 import { DataRecord, Identifier } from './record';
 
@@ -46,10 +47,32 @@ export const DataProviderProvider = (props: any) => {
 
 export function useDataProvider() {
 	const context = useContext(DataProviderContext);
+	const checkAuth = useCheckError();
 
 	if (context === undefined) {
 		throw new Error('useDataProvider must be used within a DataProviderProvider');
 	}
 
-	return context;
+	const proxy = new Proxy(context, {
+		get: (target, name) => {
+			if (typeof name === 'symbol' || name === 'then') {
+				return;
+			}
+			return (...args: any) => {
+				const type = name.toString();
+
+				// @ts-ignore
+				if (typeof target[type] !== 'function') {
+					throw new Error(`Unknown dataProvider function: ${type}`);
+				}
+
+				// @ts-ignore
+				return target[type](...args).catch(error => {
+					checkAuth(error);
+				});
+			};
+		},	
+	});
+
+	return proxy;
 }

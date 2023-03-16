@@ -1,8 +1,8 @@
 import { JSX } from 'solid-js';
-import { Form } from '@solid-admin/core';
+import { Form, FormProps } from '@solid-admin/core';
 import { Toolbar } from './toolbar';
 
-export const SimpleForm = (props: { children: JSX.Element; toolbar?: JSX.Element }) => {
+export const SimpleForm = (props: SimpleFormProps) => {
 	return (
 		<Form class="" {...props}>
 			{props.children}
@@ -10,3 +10,7 @@ export const SimpleForm = (props: { children: JSX.Element; toolbar?: JSX.Element
 		</Form>
 	);
 };
+
+export interface SimpleFormProps extends FormProps {
+	toolbar?: JSX.Element;
+}

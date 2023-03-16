@@ -1,15 +1,9 @@
 import { createForm, Form as SolidForm, reset } from '@modular-forms/solid';
-import { createComputed, createContext, useContext } from 'solid-js';
+import { createComputed, createContext, JSX, useContext } from 'solid-js';
 import { DataRecord, useRecord } from '../record';
 import { useSaveContext } from './save-context';
 
-export const Form = (props: {
-	children: any;
-	class?: string;
-	initialValues?: any;
-	record?: DataRecord;
-	onSubmit?: (values: any) => void;
-}) => {
+export const Form = (props: FormProps) => {
 	const record = useRecord(props);
 	const saveContext = useSaveContext();
 
@@ -24,9 +18,14 @@ export const Form = (props: {
 		}
 	});
 
+	if (!props.onSubmit ?? !saveContext?.save) {
+		throw new Error('Form must have an onSubmit prop or be used inside a SaveContext');
+	}
+
 	return (
 		<FormContext.Provider value={form}>
-			<SolidForm of={form} onSubmit={props.onSubmit ?? saveContext.save} class={props.class}>
+			{/* @ts-ignore  Safe ignore as we throw above */}
+			<SolidForm id={props.id} of={form} onSubmit={props.onSubmit ?? saveContext?.save} class={props.class}>
 				{props.children}
 			</SolidForm>
 		</FormContext.Provider>
@@ -44,3 +43,12 @@ export const useForm = () => {
 
 	return context;
 };
+
+export interface FormProps {
+	children: JSX.Element;
+	class?: string;
+	id?: string;
+	initialValues?: any;
+	record?: DataRecord;
+	onSubmit?: (values: any) => void;
+}

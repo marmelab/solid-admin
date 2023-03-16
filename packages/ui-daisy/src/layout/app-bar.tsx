@@ -1,11 +1,13 @@
 import { Link } from '@solidjs/router';
 import { humanize, pluralize } from 'inflection';
-import { For } from 'solid-js';
-import { ResourceDefinition, useResources, useAppTitle, useTranslate } from '@solid-admin/core';
+import { For, Show } from 'solid-js';
+import { ResourceDefinition, useResources, useAppTitle, useTranslate, useAuthProvider } from '@solid-admin/core';
+import { UserMenu } from './user-menu';
 
-export const AppBar = () => {
+export const AppBar = (props: any) => {
 	const resources = useResources();
 	const title = useAppTitle();
+	const authProvider = useAuthProvider();
 
 	return (
 		<header class="bg-neutral text-neutral-content">
@@ -21,6 +23,9 @@ export const AppBar = () => {
 						<For each={resources}>{(resource) => <AppBarResourceItem resource={resource} />}</For>
 					</ul>
 				</div>
+				<Show when={authProvider}>
+					{props.userMenu ?? <UserMenu />}
+				</Show>
 			</nav>
 		</header>
 	);

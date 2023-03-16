@@ -10,9 +10,5 @@ export const SaveContextProvider = (props: { value: SaveContextValue; children: 
 
 export const useSaveContext = () => {
 	const context = useContext(SaveContext);
-
-	if (!context) {
-		throw new Error('useSaveContext must be used within a SaveContextProvider');
-	}
 	return context;
 };
