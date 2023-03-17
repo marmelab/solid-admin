@@ -69,6 +69,7 @@ export function useDataProvider() {
 				// @ts-ignore
 				return target[type](...args).catch(error => {
 					checkAuth(error);
+					throw error;
 				});
 			};
 		},	
