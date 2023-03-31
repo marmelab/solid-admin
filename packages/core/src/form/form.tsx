@@ -1,5 +1,5 @@
-import { createForm, Form as SolidForm, reset } from '@modular-forms/solid';
-import { createComputed, createContext, JSX, useContext } from 'solid-js';
+import { createForm, FieldValues, Form as SolidForm, FormProps as SolidFormProps, reset } from '@modular-forms/solid';
+import { createComputed, createContext, createEffect, useContext } from 'solid-js';
 import { DataRecord, useRecord } from '../record';
 import { useSaveContext } from './save-context';
 
@@ -8,19 +8,23 @@ export const Form = (props: FormProps) => {
 	const saveContext = useSaveContext();
 
 	const form = createForm({
-		initialValues: props.initialValues ?? record(),
+		// @ts-ignore
+		initialValues: props.initialValues ? props.initialValues() : record(),
 	});
 
 	createComputed(() => {
 		const initialValues = props.initialValues != null ? props.initialValues() : record();
 		if (initialValues != null) {
+			// @ts-ignore
 			reset(form, { initialValues });
 		}
 	});
 
-	if (!props.onSubmit ?? !saveContext?.save) {
-		throw new Error('Form must have an onSubmit prop or be used inside a SaveContext');
-	}
+	createEffect(() => {
+		if (!props.onSubmit && !saveContext?.save) {
+			throw new Error('Form must have an onSubmit prop or be used inside a SaveContext');
+		}
+	});
 
 	return (
 		<FormContext.Provider value={form}>
@@ -44,11 +48,8 @@ export const useForm = () => {
 	return context;
 };
 
-export interface FormProps {
-	children: JSX.Element;
-	class?: string;
-	id?: string;
-	initialValues?: any;
-	record?: DataRecord;
-	onSubmit?: (values: any) => void;
-}
+export type FormProps = SolidFormProps<FieldValues> &
+	Parameters<typeof createForm<FieldValues>> & {
+		initialValues?: () => FieldValues;
+		record?: DataRecord;
+	};
