@@ -25,7 +25,7 @@ export const createDeleteController = <
 		() => ({
 			resource,
 			params: () => ({
-				id: record()?.id as Identifier,
+				id: record?.id as Identifier,
 			}),
 			meta: mergedOptions.meta,
 		}),
@@ -37,7 +37,7 @@ export const createDeleteController = <
 					type: 'info',
 					messageArgs: { smart_count: 1, _: 'Item deleted' },
 				});
-				redirect(mergedOptions.redirect, { record: record(), resource });
+				redirect(mergedOptions.redirect, { record, resource });
 			},
 			onError: () => {
 				notify({ message: 'ra.notification.http_error', type: 'warning' });
@@ -61,7 +61,7 @@ export interface CreateDeleteControllerOptions<
 	TError = unknown,
 	TContext = unknown,
 > {
-	record?: TRecord | (() => TRecord | undefined);
+	record?: TRecord;
 	resource?: string;
 	redirect?: RedirectTo;
 	meta?: TMeta;

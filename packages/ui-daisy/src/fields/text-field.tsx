@@ -7,7 +7,7 @@ export const TextField = (props: { source: string; record?: DataRecord } & JSX.H
 	const record = useRecord(localProps);
 	return (
 		<span class="neutral-content" {...restProps}>
-			{(get(record(), localProps.source) as any)?.toString() ?? ''}
+			{(get(record, localProps.source) as any)?.toString() ?? ''}
 		</span>
 	);
 };

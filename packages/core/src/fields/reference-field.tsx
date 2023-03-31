@@ -1,33 +1,33 @@
 import { Link } from '@solidjs/router';
+import { CreateQueryResult } from '@tanstack/solid-query';
 import get from 'lodash/get';
-import { JSX } from 'solid-js';
+import { JSX, Show } from 'solid-js';
 import { createGetManyAggregateQuery } from '../crud-hooks';
 import { DataRecord, Identifier, RecordProvider, useRecord } from '../record';
 import { ResourceProvider } from '../resource';
 
 export const ReferenceField = (props: {
 	children: JSX.Element;
+	loading?: JSX.Element;
 	source: string;
 	reference: string;
 	record?: DataRecord;
 }) => {
 	const record = useRecord(props);
-	const referenceId = () => get(record(), props.source) as Identifier;
+	const referenceId = () => get(record, props.source) as Identifier;
 	const query = createReferenceQuery(() => ({
 		resource: props.reference,
 		id: referenceId(),
 	}));
 
-	const referenceRecord = () => {
-		return query.data && query.data.length > 0 ? query.data[0] : null;
-	};
-
 	return (
-		<ResourceProvider resource={props.reference}>
-			<RecordProvider record={referenceRecord}>
-				<Link href={`/${props.reference}/${referenceRecord()?.id}`}>{props.children}</Link>
-			</RecordProvider>
-		</ResourceProvider>
+		<Show when={query.data} fallback={props.loading}>
+			<ResourceProvider resource={props.reference}>
+				<RecordProvider record={query.data}>
+					<Link href={`/${props.reference}/${query.data?.id}`}>{props.children}</Link>
+				</RecordProvider>
+			</ResourceProvider>
+		</Show>
 	);
 };
 
@@ -38,5 +38,16 @@ const createReferenceQuery = (options: CreateReferenceQueryOptions) => {
 
 	const query = createGetManyAggregateQuery(() => ({ resource: resource(), params: { ids: [id()] } }));
 
-	return query;
+	const queryProxy = new Proxy<CreateQueryResult<any, unknown>>(query, {
+		get: (target, prop) => {
+			if (prop === 'data') {
+				return query.data && query.data.length > 0 ? query.data[0] : null;
+			}
+
+			// @ts-ignore
+			return query[prop];
+		},
+	});
+
+	return queryProxy;
 };

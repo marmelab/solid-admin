@@ -17,7 +17,7 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 	const list = useList();
 	
 	const [sorting, setSorting] = createSignal<SortingState>([
-		{ id: list?.sort().field ?? 'id', desc: list?.sort().order === 'DESC' },
+		{ id: list?.sort.field ?? 'id', desc: list?.sort.order === 'DESC' },
 	]);
 
 	createEffect(() => {
@@ -31,7 +31,7 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 	});
 	const table = createSolidTable({
 		get data() {
-			return list?.data() ?? [];
+			return list?.data ?? [];
 		},
 		columns: props.columns,
 		state: {
@@ -110,9 +110,9 @@ export const DataGrid = (props: { columns: ColumnDef<any, any>[] }) => {
 			</table>
 			<div class="flex justify-between">
 				<Pagination
-					total={list.total() ?? 0}
-					perPage={list.pagination().perPage}
-					page={list.pagination().page}
+					total={list.total ?? 0}
+					perPage={list.pagination.perPage}
+					page={list.pagination.page}
 					setPage={list.setPage}
 				/>
 			</div>

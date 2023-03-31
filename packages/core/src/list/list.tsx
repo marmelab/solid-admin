@@ -18,7 +18,7 @@ export const List = (props: CreateListControllerOptions & { children: JSX.Elemen
 	);
 
 	return (
-		<ListProvider list={list}>
+		<ListProvider value={list}>
 			<AppTitle>{title()}</AppTitle>
 
 			{props.children}

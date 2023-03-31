@@ -47,10 +47,6 @@ export const createListController = (options?: CreateListControllerOptions): Lis
 		params,
 	});
 
-	const data = () => query.data?.data;
-	const total = () => query.data?.total;
-	const isLoading = () => query.isLoading;
-
 	const setPage = (page: number) => {
 		setSearchParams({ page });
 	};
@@ -63,17 +59,39 @@ export const createListController = (options?: CreateListControllerOptions): Lis
 		setSearchParams({ filter: JSON.stringify(filter) });
 	};
 
-	return {
-		data,
-		total,
-		isLoading,
-		setPage,
-		setSort,
-		setFilter,
-		pagination: () => params().pagination,
-		sort: () => params().sort,
-		filter: () => params().filter,
-	};
+	const listContextValue = new Proxy<ListContextValue>({} as ListContextValue, {
+		get(target, props) {
+			if (props === 'setPage') {
+				return setPage;
+			}
+			if (props === 'setSort') {
+				return setSort;
+			}
+			if (props === 'setFilter') {
+				return setFilter;
+			}
+			if (props === 'pagination') {
+				return params().pagination;
+			}
+			if (props === 'sort') {
+				return params().sort;
+			}
+			if (props === 'filter') {
+				return params().filter;
+			}
+			if (props === 'data') {
+				return query.data?.data;
+			}
+			if (props === 'total') {
+				return query.data?.total;
+			}
+
+			// @ts-ignore
+			return query[props];
+		}
+	})
+
+	return listContextValue;
 };
 
 export interface CreateListControllerOptions {

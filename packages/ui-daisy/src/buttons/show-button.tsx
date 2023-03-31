@@ -20,7 +20,7 @@ export const ShowButton = (
 
 	return (
 		<Button.Root asChild>
-			<As component={Link} class={clsx('btn btn-sm', local.class)} href={`/${resource}/${record()?.id}/show`} {...rest}>
+			<As component={Link} class={clsx('btn btn-sm', local.class)} href={`/${resource}/${record?.id}/show`} {...rest}>
 				{label()}
 			</As>
 		</Button.Root>

@@ -33,11 +33,9 @@ export const ReferenceInput = (props: {
 		resource: props.reference,
 	});
 
-	const referenceRecord = () => recordQuery.data?.data;
-
 	return (
 		<ListContext.Provider value={listQuery}>
-			<RecordProvider record={referenceRecord}>{props.children}</RecordProvider>
+			<RecordProvider record={recordQuery.data?.data}>{props.children}</RecordProvider>
 		</ListContext.Provider>
 	);
 };

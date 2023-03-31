@@ -9,16 +9,14 @@ export const EditTitle = (props: { record?: DataRecord; resource?: string }) => 
 	const resourceDefinition = useResourceDefinition(props);
 
 	const title = createMemo(() => {
-		const currentRecord = record();
-
-		if (resourceDefinition && currentRecord) {
+		if (resourceDefinition && record) {
 			const definition = resourceDefinition();
 			if (definition?.recordRepresentation) {
-				return definition.recordRepresentation(currentRecord);
+				return definition.recordRepresentation(record);
 			}
 		}
 
-		return `${resource} #${currentRecord?.id}`;
+		return `${resource} #${record?.id}`;
 	});
 
 	return <AppTitle>{title()}</AppTitle>;

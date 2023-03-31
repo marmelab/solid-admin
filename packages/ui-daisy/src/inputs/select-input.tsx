@@ -26,7 +26,7 @@ export const SelectInput = (
 						<option disabled selected>
 							Pick one
 						</option>
-						<For each={props.choices ?? list?.data()}>
+						<For each={props.choices ?? list?.data}>
 							{(choice) => (
 								<option
 									value={choice[props.optionValue ?? 'id']}

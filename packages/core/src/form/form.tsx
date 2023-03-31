@@ -18,11 +18,13 @@ export const Form = (props: FormProps) => {
 
 	const form = createForm({
 		// @ts-ignore
-		initialValues: props.initialValues ? props.initialValues() : record(),
+		get initialValues() {
+			return props.initialValues ? props.initialValues() : record;
+		}
 	});
 
 	createComputed(() => {
-		const initialValues = props.initialValues != null ? props.initialValues() : record();
+		const initialValues = props.initialValues != null ? props.initialValues() : record;
 		if (initialValues != null) {
 			// @ts-ignore
 			reset(form, { initialValues });

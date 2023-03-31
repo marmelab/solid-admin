@@ -19,12 +19,12 @@ export const createEditController = <
 	const params = useParams();
 	const mergedOptions = mergeProps({ redirect: 'list' }, options);
 	const redirect = useRedirect();
-	const id = () => options.id ?? params.id;
+	const id = options.id ?? params.id;
 	const query = createGetOneQuery<TRecord, TMeta, TError>(
-		() => ({ resource, params: { id: id() }, meta: mergedOptions.meta }),
+		() => ({ resource, params: { id }, meta: mergedOptions.meta }),
 		{
 			get enabled() {
-				return !!id();
+				return !!id;
 			},
 			...mergedOptions.queryOptions,
 		},
@@ -34,7 +34,7 @@ export const createEditController = <
 	const mutation = createUpdateMutation<TRecord, TData, TMeta, TError, TContext>(
 		() => ({
 			resource,
-			params: { id: id() },
+			params: { id },
 			meta: mergedOptions.meta,
 		}),
 		{
@@ -56,19 +56,30 @@ export const createEditController = <
 		},
 	);
 
-	const data = () => query.data?.data;
-	const isLoading = () => query.isLoading;
-	const isMutating = () => mutation.isLoading;
+	const contextValue = new Proxy<EditControllerResult>({} as EditControllerResult, {
+		get(target, props) {
+			if (props === 'id') {
+				return id;
+			}
+			if (props === 'data') {
+				return query.data?.data;
+			}
+			if (props === 'resource') {
+				return resource;
+			}
+			if (props === 'query') {
+				return query;
+			}
+			if (props === 'mutation') {
+				return mutation;
+			}
+			if (props === 'isMutating') {
+				return mutation.isLoading;
+			}
+		},
+	});
 
-	return {
-		id,
-		data,
-		isLoading,
-		isMutating,
-		resource,
-		query,
-		mutation,
-	};
+	return contextValue;
 };
 
 export interface CreateEditControllerOptions<
@@ -84,4 +95,14 @@ export interface CreateEditControllerOptions<
 	meta?: TMeta;
 	queryOptions?: Parameters<typeof createGetOneQuery<TRecord, TMeta, TError>>[1];
 	mutationOptions?: Parameters<typeof createUpdateMutation<TRecord, TData, TMeta, TError, TContext>>[1];
+}
+
+export type EditControllerResult = {
+	id: Identifier;
+	data?: DataRecord;
+	resource: string;
+	query: ReturnType<typeof createGetOneQuery>;
+	mutation: ReturnType<typeof createUpdateMutation>;
+	isLoading: boolean;
+	isMutating: boolean;
 }

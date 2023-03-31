@@ -2,8 +2,9 @@ import { useCheckError } from './auth';
 import { createContext, useContext } from 'solid-js';
 import { DataRecord, Identifier } from './record';
 
+export type GetListResult = { data: DataRecord[]; total: number };
 export type DataProvider = {
-	getList: (resource: string, params: any) => Promise<{ data: DataRecord[]; total: number }>;
+	getList: (resource: string, params: any) => Promise<GetListResult>;
 	getOne: <TRecord extends DataRecord = DataRecord, TMeta = unknown>(
 		resource: string,
 		params: { id: Identifier },

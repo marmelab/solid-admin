@@ -46,7 +46,7 @@ export const DeleteButton = <
 									{translate('ra.message.delete_title', {
 										_: 'Delete %{name} #%{id}',
 										name: controller.resource,
-										id: controller.record()?.id,
+										id: controller.record?.id,
 									})}
 								</h3>
 							</Dialog.Title>

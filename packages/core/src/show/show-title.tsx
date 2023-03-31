@@ -9,7 +9,7 @@ export const ShowTitle = (props: { record?: DataRecord; resource?: string }) => 
 	const resourceDefinition = useResourceDefinition(props);
 
 	const title = createMemo(() => {
-		const currentRecord = record();
+		const currentRecord = record;
 
 		if (resourceDefinition && currentRecord) {
 			const definition = resourceDefinition();
