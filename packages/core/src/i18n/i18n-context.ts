@@ -1,6 +1,6 @@
 import { createContext } from 'solid-js';
 
-const defaulti18nContext = {
+export const DefaultI18nProvider = {
 	translate: (x: string) => x,
 	changeLocale: () => Promise.resolve(),
 	getLocale: () => 'en',
@@ -13,7 +13,7 @@ export type I18nProvider = {
 	getLocales?: () => Locale[];
 };
 
-export const I18nContext = createContext<I18nProvider>(defaulti18nContext);
+export const I18nContext = createContext<I18nProvider>(DefaultI18nProvider);
 
 export type Locale = {
 	locale: string;

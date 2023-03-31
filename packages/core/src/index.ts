@@ -1,4 +1,5 @@
 export * from './admin';
+export * from './auth';
 export * from './app-title';
 export * from './create';
 export * from './crud-hooks';
