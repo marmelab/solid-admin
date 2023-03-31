@@ -1,16 +1,15 @@
-import { createComputed, createContext, createSignal, JSX, useContext } from 'solid-js';
+import { createComputed, createContext, createSignal, JSX, Signal, useContext } from 'solid-js';
 
 export type AppTitleValue = JSX.Element;
 export type SetAppTitle = (title: AppTitleValue) => void;
-export type AppTitleContextValue = [AppTitleValue, SetAppTitle];
+export type AppTitleContextValue = Signal<AppTitleValue>;
 
 export const AppTitleContext = createContext<AppTitleContextValue>();
 
 export const AppTitleProvider = (props: { children: JSX.Element }) => {
-	// eslint-disable-next-line solid/reactivity
-	const appTitleContext = createSignal<AppTitleValue>();
+	const [appTitle, setAppTitle] = createSignal<AppTitleValue>();
 
-	return <AppTitleContext.Provider value={appTitleContext}>{props.children}</AppTitleContext.Provider>;
+	return <AppTitleContext.Provider value={[appTitle, setAppTitle]}>{props.children}</AppTitleContext.Provider>;
 };
 
 export const useAppTitle = () => {

@@ -1,10 +1,11 @@
 import { Form, useLogin, useTranslate } from '@solid-admin/core';
+import { SubmitHandler, FieldValues } from '@modular-forms/solid';
 import { TextInput } from '../inputs';
 
 export const Login = () => {
 	const translate = useTranslate();
 	const loginMutation = useLogin();
-	const handleSubmit = (values: any) => {
+	const handleSubmit: SubmitHandler<FieldValues> = (values) => {
 		loginMutation.mutate(values);
 	};
 
