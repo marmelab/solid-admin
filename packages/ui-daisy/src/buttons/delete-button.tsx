@@ -1,5 +1,6 @@
 import { Dialog } from '@kobalte/core';
 import { CreateDeleteControllerOptions, DataRecord, createDeleteController, useTranslate } from '@solid-admin/core';
+import { Button } from '@kobalte/core';
 import clsx from 'clsx';
 import { JSX, splitProps } from 'solid-js';
 
@@ -31,9 +32,9 @@ export const DeleteButton = <
 	return (
 		<Dialog.Root>
 			<Dialog.Trigger>
-				<button class={clsx('btn btn-sm', local.class)} type="button" {...rest}>
+				<Button.Root class={clsx('btn btn-sm', local.class)} type="button" {...rest}>
 					{label()}
-				</button>
+				</Button.Root>
 			</Dialog.Trigger>
 			<Dialog.Portal>
 				<Dialog.Overlay />
@@ -56,13 +57,11 @@ export const DeleteButton = <
 								</p>
 							</Dialog.Description>
 							<div class="modal-action">
-								<button class="btn btn-error" onClick={handleConfirm}>
+								<Button.Root class="btn btn-error" onClick={handleConfirm}>
 									{translate('ra.action.confirm', { _: 'Confirm' })}
-								</button>
+								</Button.Root>
 								<Dialog.CloseButton>
-									<button class="btn">
-										{translate('ra.action.cancel', { _: 'Cancel' })}
-									</button>
+									<Button.Root class="btn">{translate('ra.action.cancel', { _: 'Cancel' })}</Button.Root>
 								</Dialog.CloseButton>
 							</div>
 						</div>

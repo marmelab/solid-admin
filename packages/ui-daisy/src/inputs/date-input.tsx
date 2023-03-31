@@ -1,6 +1,7 @@
 import { JSX } from 'solid-js';
 import { Field } from '@modular-forms/solid';
 import { useForm } from '@solid-admin/core';
+import { TextField } from '@kobalte/core';
 
 export const DateInput = (props: {
 	label?: string;
@@ -12,11 +13,11 @@ export const DateInput = (props: {
 	return (
 		<Field of={form} name={props.source}>
 			{(field) => (
-				<div class="form-control w-full max-w-xs">
-					<label class="label">
+				<TextField.Root id={props.source} class="form-control w-full max-w-xs">
+					<TextField.Label class="label">
 						<span class="label-text">{props.label ?? props.source}</span>
-					</label>
-					<input
+					</TextField.Label>
+					<TextField.Input
 						{...field.props}
 						type="date"
 						placeholder="Type here"
@@ -25,7 +26,7 @@ export const DateInput = (props: {
 						value={getStringFromDate(field.value) || ''}
 						{...props.inputProps}
 					/>
-				</div>
+				</TextField.Root>
 			)}
 		</Field>
 	);

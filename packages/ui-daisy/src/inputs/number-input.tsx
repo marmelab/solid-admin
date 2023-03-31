@@ -1,6 +1,7 @@
 import { JSX } from 'solid-js';
 import { Field } from '@modular-forms/solid';
 import { useForm } from '@solid-admin/core';
+import { TextField } from '@kobalte/core';
 
 export const NumberInput = (props: {
 	label?: string;
@@ -12,19 +13,19 @@ export const NumberInput = (props: {
 	return (
 		<Field of={form} name={props.source}>
 			{(field) => (
-				<div class="form-control w-full max-w-xs">
-					<label class="label">
+				<TextField.Root id={props.source} class="form-control w-full max-w-xs">
+					<TextField.Label class="label">
 						<span class="label-text">{props.label ?? props.source}</span>
-					</label>
-					<input
+					</TextField.Label>
+					<TextField.Input
 						{...field.props}
-						type="number"
+						type="text"
 						placeholder="Type here"
 						class="input input-bordered w-full max-w-xs"
 						value={field.value?.toString() || ''}
 						{...props.inputProps}
 					/>
-				</div>
+				</TextField.Root>
 			)}
 		</Field>
 	);
