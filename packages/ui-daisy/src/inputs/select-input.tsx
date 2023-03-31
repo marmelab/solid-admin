@@ -1,19 +1,21 @@
-import { Field } from '@modular-forms/solid';
+import { Field, FieldProps, FieldValues } from '@modular-forms/solid';
 import { For } from 'solid-js';
 import { useList, useForm } from '@solid-admin/core';
 
-export const SelectInput = (props: {
-	label?: string;
-	source: string;
-	choices?: any[];
-	optionText?: string;
-	optionValue?: string;
-}) => {
+export const SelectInput = (
+	props: {
+		label?: string;
+		source: string;
+		choices?: any[];
+		optionText?: string;
+		optionValue?: string;
+	} & Partial<FieldProps<FieldValues, string>>,
+) => {
 	const list = useList();
 	const form = useForm();
 
 	return (
-		<Field of={form} name={props.source}>
+		<Field of={form} name={props.source} {...props}>
 			{(field) => (
 				<div class="form-control w-full max-w-xs">
 					<label class="label">

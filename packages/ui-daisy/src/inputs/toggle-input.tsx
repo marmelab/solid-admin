@@ -1,16 +1,18 @@
 import { JSX } from 'solid-js';
-import { Field } from '@modular-forms/solid';
+import { Field, FieldProps, FieldValues } from '@modular-forms/solid';
 import { useForm } from '@solid-admin/core';
 
-export const ToggleInput = (props: {
-	label?: string;
-	source: string;
-	inputProps: JSX.InputHTMLAttributes<HTMLInputElement>;
-}) => {
+export const ToggleInput = (
+	props: {
+		label?: string;
+		source: string;
+		inputProps: JSX.InputHTMLAttributes<HTMLInputElement>;
+	} & Partial<FieldProps<FieldValues, string>>,
+) => {
 	const form = useForm();
 
 	return (
-		<Field of={form} name={props.source}>
+		<Field of={form} name={props.source} {...props}>
 			{(field) => (
 				<div class="form-control w-full max-w-xs">
 					<label class="label">

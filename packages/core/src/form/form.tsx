@@ -1,4 +1,13 @@
-import { createForm, FieldValues, Form as SolidForm, FormProps as SolidFormProps, reset } from '@modular-forms/solid';
+import {
+	createForm,
+	DeepPartial,
+	FieldValues,
+	Form as SolidForm,
+	FormProps as SolidFormProps,
+	reset,
+	ValidateForm,
+	ValidationMode,
+} from '@modular-forms/solid';
 import { createComputed, createContext, createEffect, useContext } from 'solid-js';
 import { DataRecord, useRecord } from '../record';
 import { useSaveContext } from './save-context';
@@ -48,8 +57,11 @@ export const useForm = () => {
 	return context;
 };
 
-export type FormProps = SolidFormProps<FieldValues> &
-	Parameters<typeof createForm<FieldValues>> & {
-		initialValues?: () => FieldValues;
-		record?: DataRecord;
-	};
+export type FormProps = Partial<SolidFormProps<FieldValues>> & {
+	initialValues?: () => DeepPartial<FieldValues>;
+	record?: DataRecord;
+	// Below properties are accepted by createForm but FormOptions is not exported from @modular-forms/solid
+	validateOn?: ValidationMode;
+	revalidateOn?: ValidationMode;
+	validate?: ValidateForm<FieldValues>;
+};
