@@ -13,6 +13,7 @@
 		"build:ui-daisy": "cd packages/ui-daisy && npm run build",
 		"build:i18n-polyglot": "cd packages/i18n-polyglot && npm run build",
 		"build:data-fakerest": "cd packages/data-fakerest && npm run build",
+		"build:language-english": "cd packages/language-english && npm run build",
 		"build:admin": "cd packages/admin && npm run build",
 		"test": "vitest",
 		"lint": "eslint --ext .ts,.tsx packages/**/src",
