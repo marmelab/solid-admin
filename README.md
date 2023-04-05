@@ -33,11 +33,11 @@ render(
 );
 ```
 
-The `<Resource>` component is a configuration component that allows to define sub components for each of the admin view: `list`, `edit`, and `create`. These components use MUI and custom components from react-admin:
+The `<Resource>` component is a configuration component that allows to define sub components for each of the admin view: `list`, `edit`, and `create`. These components use DaisyUI and custom components from solid-admin:
 
 ```jsx
 // in posts.js
-import { List, Datagrid, Edit, Create, SimpleForm, TextField, EditButton, TextInput, useRecordContext } from '@solid-admin';
+import { List, Datagrid, Edit, Create, SimpleForm, TextField, EditButton, TextInput, useRecordContext } from '@solid-admin/admin';
 
 export const PostList = () => (
     <List>
@@ -92,8 +92,8 @@ Solid-admin uses an adapter approach, with a concept called *Data Providers*. Ex
 
 ![Data provider architecture](https://marmelab.com/react-admin/img/data-provider.png)
 
-See the [Data Providers documentation](https://marmelab.com/react-admin/DataProviders.html) for details.
+See the react-admin [Data Providers documentation](https://marmelab.com/react-admin/DataProviders.html) for details.
 
 ## Batteries Included But Removable
 
-Solid-admin is designed as a library of loosely coupled React components and hooks exposing reusable controller logic. It is very easy to replace any part of react-admin with your own, e.g. to use a custom datagrid, GraphQL instead of REST, or Bootstrap instead of Material Design.
+Solid-admin is designed as a library of loosely coupled Solid components and hooks exposing reusable controller logic. It is very easy to replace any part of solid-admin with your own, e.g. to use a custom datagrid, GraphQL instead of REST, or Bootstrap instead of Material Design.
