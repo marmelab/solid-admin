@@ -33,7 +33,7 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@solid-admin/core": "^0.0.1",
+		"@solid-admin/core": "^0.0.0",
 		"fakerest": "^3.5.0"
 	}
 }
