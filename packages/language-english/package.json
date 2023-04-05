@@ -1,6 +1,6 @@
 {
 	"name": "@solid-admin/language-english",
-	"version": "0.0.1",
+	"version": "0.0.0",
 	"authors": [
 		"Gildas Garcia"
 	],
@@ -32,6 +32,5 @@
 		"format": "prettier --write ."
 	},
 	"license": "MIT",
-	"dependencies": {
-	}
+	"dependencies": {}
 }

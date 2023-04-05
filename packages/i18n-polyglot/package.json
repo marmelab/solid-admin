@@ -1,6 +1,6 @@
 {
 	"name": "@solid-admin/i18n-polyglot",
-	"version": "0.0.1",
+	"version": "0.0.0",
 	"authors": [
 		"Gildas Garcia"
 	],
@@ -33,6 +33,6 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@solid-admin/core": "^0.0.1"
+		"@solid-admin/core": "^0.0.0"
 	}
 }

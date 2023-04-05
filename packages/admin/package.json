@@ -1,6 +1,6 @@
 {
 	"name": "@solid-admin/admin",
-	"version": "0.0.1",
+	"version": "0.0.0",
 	"authors": [
 		"Gildas Garcia"
 	],
@@ -33,9 +33,9 @@
 	},
 	"license": "MIT",
 	"dependencies": {
-		"@solid-admin/core": "^0.0.1",
-		"@solid-admin/ui-daisy": "^0.0.1",
-		"@solid-admin/i18n-polyglot": "^0.0.1",
+		"@solid-admin/core": "^0.0.0",
+		"@solid-admin/ui-daisy": "^0.0.0",
+		"@solid-admin/i18n-polyglot": "^0.0.0",
 		"solid-js": "^1.6.2"
 	}
 }
