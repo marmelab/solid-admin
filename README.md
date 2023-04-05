@@ -84,6 +84,21 @@ export const PostCreate = () => (
 );
 ```
 
+## Demo
+
+A demo is available inside `packages/demo`.
+
+To run it, clone the repository, install the dependencies, and run the demo:
+
+```sh
+make install
+make start
+```
+
+The demo will be available at [http://localhost:3000](http://localhost:3000).
+
+You can use any username and password to log in.
+
 ## Does It Work With My API?
 
 Yes.
