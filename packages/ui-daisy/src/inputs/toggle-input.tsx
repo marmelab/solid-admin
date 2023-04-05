@@ -6,7 +6,7 @@ export const ToggleInput = (
 	props: {
 		label?: string;
 		source: string;
-		inputProps: JSX.InputHTMLAttributes<HTMLInputElement>;
+		inputProps?: JSX.InputHTMLAttributes<HTMLInputElement>;
 	} & Partial<FieldProps<FieldValues, string>>,
 ) => {
 	const form = useForm();
