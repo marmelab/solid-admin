@@ -56,7 +56,7 @@ export const createListController = (options?: CreateListControllerOptions): Lis
 	};
 
 	const setFilter = (filter: any) => {
-		setSearchParams({ filter: JSON.stringify(filter) });
+		setSearchParams({ filter: JSON.stringify({ ...merged.filter, filter }) });
 	};
 
 	const listContextValue = new Proxy<ListContextValue>({} as ListContextValue, {
