@@ -2,16 +2,23 @@ import { useCheckError } from './auth';
 import { createContext, useContext } from 'solid-js';
 import { DataRecord, Identifier } from './record';
 
-export type GetListResult = { data: DataRecord[]; total: number };
+export type GetListResult<TRecord extends DataRecord = DataRecord> = { data: TRecord[]; total: number };
 export type DataProvider = {
-	getList: (resource: string, params: any) => Promise<GetListResult>;
+	getList: <TRecord extends DataRecord = DataRecord, TMeta = unknown>(
+		resource: string,
+		params: any,
+		meta?: TMeta,
+	) => Promise<GetListResult<TRecord>>;
 	getOne: <TRecord extends DataRecord = DataRecord, TMeta = unknown>(
 		resource: string,
 		params: { id: Identifier },
 		meta?: TMeta,
 	) => Promise<{ data: TRecord }>;
 	getMany: (resource: string, params: any) => Promise<{ data: DataRecord[] }>;
-	getManyReference: (resource: string, params: any) => Promise<{ data: DataRecord[]; total: number }>;
+	getManyReference: <TRecord extends DataRecord = DataRecord, TMeta = unknown>(
+		resource: string,
+		params: any,
+	) => Promise<GetListResult<TRecord>>;
 	update: <
 		TRecord extends DataRecord = DataRecord,
 		TData extends Record<string, unknown> = DataRecord,
@@ -68,12 +75,12 @@ export function useDataProvider() {
 				}
 
 				// @ts-ignore
-				return target[type](...args).catch(error => {
+				return target[type](...args).catch((error) => {
 					checkAuth(error);
 					throw error;
 				});
 			};
-		},	
+		},
 	});
 
 	return proxy;

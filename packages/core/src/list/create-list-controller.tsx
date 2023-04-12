@@ -2,9 +2,12 @@ import { useSearchParams } from '@solidjs/router';
 import { createEffect, createSignal, mergeProps } from 'solid-js';
 import { ListContextValue } from '../list-context';
 import { useResource } from '../resource';
+import { DataRecord } from '../record';
 import { createGetListQuery } from '../crud-hooks/create-get-list-query';
 
-export const createListController = (options?: CreateListControllerOptions): ListContextValue => {
+export const createListController = <TRecord extends DataRecord = DataRecord, TMeta = unknown, TError = unknown>(
+	options?: CreateListControllerOptions<TRecord, TMeta, TError>
+): ListContextValue => {
 	const resource = useResource(options);
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -42,10 +45,10 @@ export const createListController = (options?: CreateListControllerOptions): Lis
 		});
 	});
 
-	const query = createGetListQuery({
-		resource,
-		params,
-	});
+	const query = createGetListQuery<TRecord, TMeta, TError>(
+		() => ({ resource, params, meta: options?.meta }),
+		options?.queryOptions,
+	);
 
 	const setPage = (page: number) => {
 		setSearchParams({ page });
@@ -88,16 +91,18 @@ export const createListController = (options?: CreateListControllerOptions): Lis
 
 			// @ts-ignore
 			return query[props];
-		}
-	})
+		},
+	});
 
 	return listContextValue;
 };
 
-export interface CreateListControllerOptions {
+export interface CreateListControllerOptions<TRecord extends DataRecord = DataRecord, TMeta = unknown, TError = unknown> {
 	resource?: string;
 	perPage?: number;
 	sort?: string;
 	order?: string;
 	filter?: any;
+	meta?: TMeta;
+	queryOptions?: Parameters<typeof createGetListQuery<TRecord, TMeta, TError>>[1];
 }
