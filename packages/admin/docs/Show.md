@@ -36,3 +36,5 @@ export const PostShow = () => {
 	);
 };
 ```
+
+![Show view](./show.webp)

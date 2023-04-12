@@ -36,3 +36,5 @@ export const PostEdit = () => {
 	);
 };
 ```
+
+![Edit view](./edit.webp)

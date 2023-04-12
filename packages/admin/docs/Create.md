@@ -34,3 +34,5 @@ export const PostCreate = () => {
 	);
 };
 ```
+
+![Create view](./create.webp)
