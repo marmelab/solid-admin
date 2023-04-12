@@ -23,7 +23,7 @@ This Data Provider fits REST APIs powered by [JSON Server](https://github.com/ty
 | `updateMany`       | `PUT http://my.api.url/posts/123`, `PUT http://my.api.url/posts/456`, `PUT http://my.api.url/posts/789` |
 | `delete`           | `DELETE http://my.api.url/posts/123`                                                                    |
 
-**Note**: The JSON Server REST Data Provider expects the API to include a `X-Total-Count` header in the response to `getList` and `getManyReference` calls. The value must be the total number of resources in the collection. This allows react-admin to know how many pages of resources there are in total, and build the pagination controls.
+**Note**: The JSON Server REST Data Provider expects the API to include a `X-Total-Count` header in the response to `getList` and `getManyReference` calls. The value must be the total number of resources in the collection. This allows solid-admin to know how many pages of resources there are in total, and build the pagination controls.
 
 ```
 X-Total-Count: 319
@@ -53,7 +53,7 @@ export const App = () => (
 
 ### Adding Custom Headers
 
-The provider function accepts an HTTP client function as second argument. By default, they use react-admin's `fetchUtils.fetchJson()` as HTTP client. It's similar to HTML5 `fetch()`, except it handles JSON decoding and HTTP error codes automatically.
+The provider function accepts an HTTP client function as second argument. By default, they use solid-admin's `fetchJson()` as HTTP client. It's similar to HTML5 `fetch()`, except it handles JSON decoding and HTTP error codes automatically.
 
 That means that if you need to add custom headers to your requests, you just need to *wrap* the `fetchJson()` call inside your own function:
 
@@ -89,7 +89,7 @@ const httpClient = (url, options = {}) => {
         authenticated: true,
         token: 'SRTRDFVESGNJYTUKTYTHRG'
     };
-    return fetchUtils.fetchJson(url, options);
+    return fetchJson(url, options);
 };
 ```
 
