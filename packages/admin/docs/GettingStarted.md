@@ -9,7 +9,7 @@ Solid Admin is a port of [React Admin](https://marmelab.com/react-admin) and man
 
 Besides, the different providers (dataProvider, authProvider and i18nProvider) share the same interface so you can use those made for react-admin in solid-admin. Be aware that many have a dependency on react-admin and that you might end up with react related dependencies in your project for now.
 
-Just like react-admin, solid-admin tries to leverage the ecosystem best libraries, including [@tanstack/solid-query](https://tanstack.com/query/latest/docs/solid/overview), [Modular Forms](https://modularforms.dev/) and [Kobalte](https://kobalte.dev/).
+Just like react-admin, solid-admin tries to leverage the ecosystem's best libraries, including [@tanstack/solid-query](https://tanstack.com/query/latest/docs/solid/overview), [Modular Forms](https://modularforms.dev/) and [Kobalte](https://kobalte.dev/).
 
 ## Installation
 
@@ -41,7 +41,7 @@ module.exports = {
 		'./src/**/*.{js,ts,jsx,tsx}',
         // This line ensures tailwind will inspect solid-admin components for classes and include them
         // in the generated CSS file.
-		path.join(path.dirname(require.resolve(@solid-admin/ui-daisy)), '**/*.(js|jsx)'),
+		path.join(path.dirname(require.resolve('@solid-admin/ui-daisy')), '**/*.(js|jsx)'),
 	],
 	darkMode: 'class',
 	theme: {
@@ -53,7 +53,7 @@ module.exports = {
 
 ## Building Your Admin
 
-How that the project is ready, we can build the application:
+Now that the project is ready, we can start coding:
 
 ```jsx
 // In App.tsx
@@ -71,11 +71,11 @@ const App = () => (
 export default App;
 ```
 
-And build the first list view:
+And add the first list view:
 
 ```jsx
 // In users/UserList.tsx
-import { Datagrid, TextField } from '@solid-admin/solid';
+import { List, Datagrid, TextField } from '@solid-admin/solid';
 
 export const UserList = () => (
     <List>

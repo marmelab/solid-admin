@@ -4,7 +4,7 @@ The `<Show>` component is responsible for displaying a record.
 
 It leverages the dataProvider `getOne` method.
 
-It's an headless components that provide its features through the `RecordContext` and leave the UI responsibility to its children.
+It's an headless components that provides its features through the `RecordContext` and leaves the UI responsibility to its children.
 
 ## Props
 
@@ -22,13 +22,15 @@ export const PostShow = () => {
 	return (
 		<div class="flex flex-col p-4 gap-4">
 			<Show>
-				<SimpleForm>
+				<Label source="title">
 					<TextField source="title" />
+				</Label>
+				<Label source="teaser">
 					<TextField source="teaser" />
-					<TextField source="body" />
-					<NumberField source="views" />
+				</Label>
+				<Label source="commentable">
 					<BooleanField source="commentable" />
-				</SimpleForm>
+				</Label>
 			</Show>
 		</div>
 	);

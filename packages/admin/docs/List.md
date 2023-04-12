@@ -4,7 +4,7 @@ The `<List>` component is responsible for displaying a list of records.
 
 It leverages the dataProvider `getList` method and supports filtering, sorting and paginating the data.
 
-It's an headless components that provide its features through the `ListContext` and leave the UI responsibility to its children. One such children is the `<Datagrid>`.
+It's an headless components that provides its features through the `ListContext` and leaves the UI responsibility to its children. One such child is the `<DataGrid>`.
 
 ## Props
 

@@ -4,7 +4,7 @@ The `<Edit>` component is responsible for showing a form to edit a record.
 
 It leverages the dataProvider `getOne` and `update` methods.
 
-It's an headless components that provide its features through the `RecordContext` and `SaveContext` and leave the UI responsibility to its children. One such children is the `<SimpleForm>`.
+It's an headless components that provides its features through the `RecordContext` and `SaveContext` and leaves the UI responsibility to its children. One such child is the `<SimpleForm>`.
 
 ## Props
 
