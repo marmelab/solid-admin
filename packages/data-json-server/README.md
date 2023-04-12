@@ -51,6 +51,50 @@ export const App = () => (
 );
 ```
 
+### Adding Custom Headers
+
+The provider function accepts an HTTP client function as second argument. By default, they use solid-admin's `fetchJson()` as HTTP client. It's similar to HTML5 `fetch()`, except it handles JSON decoding and HTTP error codes automatically.
+
+That means that if you need to add custom headers to your requests, you just need to *wrap* the `fetchJson()` call inside your own function:
+
+```jsx
+import { fetchJson, Admin, Resource } from '@solid-admin/admin';
+import jsonServerProvider from '@solid-admin/data-json-server';
+
+const httpClient = (url, options = {}) => {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
+    }
+    // add your own headers here
+    options.headers.set('X-Custom-Header', 'foobar');
+    return fetchJson(url, options);
+};
+const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com', httpClient);
+
+const App = () => (
+    <Admin dataProvider={dataProvider} title="Example Admin">
+       ...
+    </Admin>,
+    document.getElementById('root')
+);
+```
+
+Now all the requests to the REST API will contain the `X-Custom-Header: foobar` header.
+
+**Tip**: The most common usage of custom headers is for authentication. `fetchJson` has built-on support for the `Authorization` token header:
+
+```js
+const httpClient = (url, options = {}) => {
+    options.user = {
+        authenticated: true,
+        token: 'SRTRDFVESGNJYTUKTYTHRG'
+    };
+    return fetchJson(url, options);
+};
+```
+
+Now all the requests to the REST API will contain the `Authorization: SRTRDFVESGNJYTUKTYTHRG` header.
+
 ## License
 
 This data provider is licensed under the MIT License, and sponsored by [marmelab](https://marmelab.com).
