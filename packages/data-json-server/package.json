@@ -1,0 +1,39 @@
+{
+	"name": "@solid-admin/data-json-server",
+	"version": "0.0.0",
+	"authors": [
+		"Gildas Garcia"
+	],
+	"description": "",
+	"type": "module",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"types": "dist/cjs/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/cjs/index.d.ts",
+			"solid": "./dist/cjs/index.js",
+			"import": "./dist/esm/index.js",
+			"require": "./dist/cjs/index.js",
+			"node": "./dist/cjs/index.js",
+			"browser": {
+				"import": "./dist/esm/index.js",
+				"require": "./dist/cjs/index.js"
+			}
+		}
+	},
+	"sideEffects": false,
+	"scripts": {
+		"build": "yarn run build-cjs && yarn run build-esm",
+		"build-cjs": "rimraf ./dist/cjs && tsc --outDir dist/cjs",
+		"build-esm": "rimraf ./dist/esm && tsc --outDir dist/esm --module es2015",
+		"test": "vitest",
+		"lint": "eslint --ext .ts,.tsx src",
+		"format": "prettier --write ."
+	},
+	"license": "MIT",
+	"dependencies": {
+		"@solid-admin/core": "^0.0.0",
+		"fakerest": "^3.5.0"
+	}
+}
