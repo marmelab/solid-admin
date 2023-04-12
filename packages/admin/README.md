@@ -39,7 +39,7 @@ module.exports = {
 
 ## Usage
 
-
+The documentation is available on the [repository](https://github.com/marmelab/solid-admin/tree/main/packages/admin/docs)
 
 ## License
 
