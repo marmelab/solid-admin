@@ -46,3 +46,5 @@ export const PostList = () => {
 	);
 };
 ```
+
+![Datagrid view](./datagrid.webp)
