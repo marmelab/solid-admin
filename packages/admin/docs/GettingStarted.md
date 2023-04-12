@@ -77,19 +77,53 @@ And add the first list view:
 // In users/UserList.tsx
 import { List, Datagrid, TextField } from '@solid-admin/solid';
 
+const UserColumns = [
+	{
+		accessorKey: 'id',
+		header: 'ID',
+		cell: () => <TextField source="id" />,
+	},
+	{
+		accessorKey: 'name',
+		header: 'Name',
+		cell: () => <TextField source="name" />,
+	},
+	{
+		accessorKey: 'username',
+		header: 'Username',
+		cell: () => <TextField source="username" />,
+	},
+	{
+		accessorKey: 'email',
+		header: 'Email',
+		cell: () => <TextField source="email" />,
+	},
+	{
+		accessorKey: 'address.street',
+		header: 'Address',
+		cell: () => <TextField source="address.street" />,
+	},
+	{
+		accessorKey: 'phone',
+		header: 'Phone',
+		cell: () => <TextField source="phone" />,
+	},
+	{
+		accessorKey: 'website',
+		header: 'Website',
+		cell: () => <TextField source="website" />,
+	},
+	{
+		accessorKey: 'website',
+		header: 'Company',
+		cell: () => <TextField source="website" />,
+	},
+];
+
 export const UserList = () => (
     <List>
-        <Datagrid rowClick="edit">
-            <TextField source="id" />
-            <TextField source="name" />
-            <TextField source="username" />
-            <TextField source="email" />
-            <TextField source="address.street" />
-            <TextField source="phone" />
-            <TextField source="website" />
-            <TextField source="company.name" />
-        </Datagrid>
-  </List>
+        <DataGrid columns={UserColumns} />
+    </List>
 );
 
 // In users/index.tsx
