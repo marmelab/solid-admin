@@ -1,21 +1,21 @@
-import { useParams } from '@solidjs/router';
-import { JSX, Show as SolidShow } from 'solid-js';
-import { createGetOneQuery } from '../crud-hooks';
-import { RecordProvider } from '../record';
-import { useResource } from '../resource';
+import { JSX, Show as SolidShow, splitProps } from 'solid-js';
+import { DataRecord, RecordProvider } from '../record';
 import { ShowTitle } from './show-title';
+import { createShowController } from './create-show-controller';
 
-export const Show = (props: { children: JSX.Element; loading?: JSX.Element; resource?: string; id?: string }) => {
-	const resource = useResource(props);
-	const params = useParams();
-	const id = props.id ?? params.id;
-	const query = createGetOneQuery(() => ({ resource, params: { id } }));
+export const Show = <
+	TRecord extends DataRecord = DataRecord,
+	TMeta = unknown,
+	TError = unknown,
+>(props: { children: JSX.Element; loading?: JSX.Element; resource?: string; id?: string }) => {
+	const [localProps, controllerOptions] = splitProps(props, ['children']);
+	const controllerProps = createShowController<TRecord, TMeta, TError>(controllerOptions);
 
 	return (
-		<SolidShow when={query.data} fallback={props.loading}>
-			<RecordProvider record={query.data?.data}>
+		<SolidShow when={controllerProps.data} fallback={props.loading}>
+			<RecordProvider record={controllerProps.data}>
 				<ShowTitle />
-				{props.children}
+				{localProps.children}
 			</RecordProvider>
 		</SolidShow>
 	);
