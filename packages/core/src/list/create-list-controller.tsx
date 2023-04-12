@@ -46,7 +46,7 @@ export const createListController = <TRecord extends DataRecord = DataRecord, TM
 	});
 
 	const query = createGetListQuery<TRecord, TMeta, TError>(
-		() => ({ resource, params, meta: options?.meta }),
+		() => ({ resource, params: params(), meta: options?.meta }),
 		options?.queryOptions,
 	);
 
