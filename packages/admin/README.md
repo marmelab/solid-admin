@@ -2,7 +2,8 @@
 
 A complete distribution of [solid-admin](https://github.com/marmelab/solid-admin) that leverage the following packages:
 
-- [@solid-admin/ui-daisy](https://www.npmjs.com/package/@solid-admin/ui-daisy) for UI components based on [DaisyUI](https://daisyui.com/)
+- [@solid-admin/core](https://www.npmjs.com/package/@solid-admin/core) for headless components and hooks.
+- [@solid-admin/ui-daisy](https://www.npmjs.com/package/@solid-admin/ui-daisy) for UI components based on [DaisyUI](https://daisyui.com/) and [Kobalt](https://kobalte.dev/).
 
 ## Installation
 
