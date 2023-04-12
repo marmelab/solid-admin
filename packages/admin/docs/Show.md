@@ -16,7 +16,7 @@ It's an headless components that provides its features through the `RecordContex
 ## Example
 
 ```jsx
-import { Show, NumberField, SimpleForm, TextField, BooleanField } from '@solid-admin/admin';
+import { Show, Label, TextField, BooleanField } from '@solid-admin/admin';
 
 export const PostShow = () => {
 	return (

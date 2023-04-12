@@ -2,7 +2,7 @@
 
 The `<Datagrid>` component is responsible for displaying a list of records.
 
-It leverages the `ListContext` provided by the [`<List>`](./List.md) component to get its data and supports pagination or sorting.
+It leverages the `ListContext` provided by the [`<List>`](./List.md) component to get its data and supports pagination and sorting.
 
 It is built with [tanstack/table](https://tanstack.com/table/v8).
 
