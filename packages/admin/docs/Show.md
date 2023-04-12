@@ -11,7 +11,7 @@ It's an headless components that provides its features through the `RecordContex
 - `resource`: Optional. The name of the targeted resource. It will be inferred from the `ResourceContext`.
 - `id`: Optional. The identifier of the record to edit. Defaults to the one provided in the route parameters.
 - `meta`: Optional. Metadata to pass to the dataProvider methods.
-- `queryOptions`: Optional. Solid-Query options for the `getOne` request.
+- `queryOptions`: Optional. [Solid-Query options](https://tanstack.com/query/latest/docs/react/reference/useQuery) for the `getOne` request.
 
 ## Example
 

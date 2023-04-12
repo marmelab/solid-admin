@@ -11,7 +11,7 @@ It's an headless components that provides its features through the `RecordContex
 - `resource`: Optional. The name of the targeted resource. It will be inferred from the `ResourceContext`.
 - `redirect`: Optional. Where to redirect to after a successful create. Can be `"list"`, `"edit"`, `"show"`, `false`, a custom path or a function accepting the record and returning a path.
 - `meta`: Optional. Metadata to pass to the dataProvider methods.
-- `mutationOptions`: Optional. Solid-Query options for the `create` request.
+- `mutationOptions`: Optional. [Solid-Query options](https://tanstack.com/query/latest/docs/react/reference/useMutation) for the `create` request.
 
 ## Example
 

@@ -12,8 +12,8 @@ It's an headless components that provides its features through the `RecordContex
 - `id`: Optional. The identifier of the record to edit. Defaults to the one provided in the route parameters.
 - `redirect`: Optional. Where to redirect to after a successful update. Can be `"list"`, `"show"`, `false`, a custom path or a function accepting the record and returning a path.
 - `meta`: Optional. Metadata to pass to the dataProvider methods.
-- `queryOptions`: Optional. Solid-Query options for the `getOne` request.
-- `mutationOptions`: Optional. Solid-Query options for the `update` request.
+- `queryOptions`: Optional. [Solid-Query options](https://tanstack.com/query/latest/docs/react/reference/useQuery) for the `getOne` request.
+- `mutationOptions`: Optional. [Solid-Query options](https://tanstack.com/query/latest/docs/react/reference/useMutation) for the `update` request.
 
 ## Example
 

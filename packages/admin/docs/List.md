@@ -13,6 +13,8 @@ It's an headless components that provides its features through the `ListContext`
 - `sort`: Optional. The field by which to sort the data initially.
 - `order`: Optional. The order by which to sort the data initially.
 - `filter`: Optional. The filter to always apply.
+- `meta`: Optional. Metadata to pass to the dataProvider methods.
+- `queryOptions`: Optional. [Solid-Query options](https://tanstack.com/query/latest/docs/react/reference/useQuery) for the `getList` request.
 
 ## Example
 
