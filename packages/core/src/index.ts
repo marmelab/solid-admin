@@ -9,6 +9,8 @@ export * from './delete';
 export * from './edit';
 export * from './fields';
 export * from './form';
+export * from './http-error';
+export * from './http-utils';
 export * from './inputs';
 export * from './list';
 export * from './list-context';
