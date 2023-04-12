@@ -24,6 +24,33 @@ import comments from './comments';
 
 export const App = () => {
 	return (
+		<Admin
+			authProvider={authProvider}
+			dataProvider={dataProvider}
+			i18nProvider={i18nProvider}
+			dashboard={Dashboard}
+		>
+			<Resource name="posts" {...posts} />
+			<Resource name="comments" {...comments} />
+		</Admin>
+	);
+```
+
+## Theme
+
+The default UI leverages [DaisyUI](https://daisyui.com/) and [Tailwind](https://tailwindcss.com/). DaisyUI supports [themes](https://daisyui.com/docs/themes/) and provides many by default. To change the theme, wrap your admin inside a `<div>` with a `data-theme` attribute:
+
+```jsx
+import { Admin, Resource } from '@solid-admin/admin';
+import authProvider from './authProvider';
+import dataProvider from './dataProvider';
+import i18nProvider from './i18nProvider';
+import { Dashboard } from './dashboard';
+import posts from './posts';
+import comments from './comments';
+
+export const App = () => {
+	return (
 		<div data-theme="corporate">
 			<Admin
                 authProvider={authProvider}
